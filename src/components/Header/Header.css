@@ -1,0 +1,31 @@
+.header{
+    height: 58px;
+}
+.logo{
+    background: -webkit-linear-gradient(#FDE82C, #FD2C63);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.logo-img{
+    object-fit: contain;
+    width: 40px;
+    height: inherit;
+    margin-right: 10px;
+}
+ul{
+    margin: 0;
+}
+li{
+    list-style: none;
+    display: inline-block;
+    margin: 0 10px;
+    color: #fff;
+}
+li>a{
+    text-decoration: none;
+    color: inherit;
+}
+li>a:hover{
+    color: #FDE82C;
+}

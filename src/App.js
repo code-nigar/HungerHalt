@@ -1,23 +1,12 @@
-import logo from './logo.svg';
 import './App.css';
+import WelcomePage from './pages/WelcomePage/WelcomePage';
+// import TimerComponent from './practice/TimerComponent'
 
 function App() {
+  const xyz = {createdAt: new Date(), duration: new Date("2023-01-15T23:59:00")}
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <WelcomePage/>
     </div>
   );
 }

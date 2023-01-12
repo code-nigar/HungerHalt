@@ -1,0 +1,23 @@
+.heroImg{
+    object-fit: cover;
+    height: 100vh;
+    width: 100vw;
+}
+.HeroSec{
+    background-image: url('../../../public/heroimage.jpg');
+    height: 98vh;
+    width: 100vw;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.cta-header{
+    font-size: 4em;
+    font-weight: 700;
+    color: #FDE82C;
+    text-shadow: 6px 10px 4px #111;
+    line-height: 70px;
+}
+.cta-container{
+    width: 25vw;
+}

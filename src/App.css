@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2&display=swap');
+
 .App {
   text-align: center;
+  font-family: 'Exo 2', sans-serif;
 }
 
 .App-logo {

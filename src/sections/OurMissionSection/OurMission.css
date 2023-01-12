@@ -1,0 +1,16 @@
+.our-mission-sec{
+    background-color: #000;
+    color: #fff;
+    padding: 50px;
+}
+.mission-heading{
+    margin-bottom: 40px;
+    background: -webkit-linear-gradient(#FDE82C, #FD2C63);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.mission-text{
+    max-width: 800px;
+    text-align: center;
+}
