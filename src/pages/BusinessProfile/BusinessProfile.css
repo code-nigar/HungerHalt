@@ -1,0 +1,43 @@
+.cover-container > img{
+    object-fit: cover;
+    height: 30vh;
+    width: 100vw;
+}
+
+.profile-image{
+    /* position: absolute; */
+    align-self: flex-start;
+    justify-self: flex-start;
+    transform: translateY(-70px);
+    margin-left: 6vw;
+}
+.profile-image >img{
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    /*transform: translateY(-60px);*/
+}
+
+.main-container {
+    width: 100vw;
+    display: flex;
+}
+
+.left-container {
+    border: 1px solid;
+    width: 30%;
+}
+
+.right-container {
+    border: 1px solid red;
+    width: 65%;
+}
+.form-container{
+    border: 3px solid yellow;
+}
+
+.newPost-form{
+    background-color: black;
+    color: #fff;
+    width: inherit;
+}

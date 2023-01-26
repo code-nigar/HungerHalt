@@ -1,5 +1,6 @@
 import React from "react";
 import "./HeroSection.css";
+import { NavLink } from 'react-router-dom';
 
 function HeroSection() {
   return (
@@ -9,9 +10,9 @@ function HeroSection() {
         {/* </div> */}
         <div className="cta-container d-flex flex-end justify-content-center align-content-center flex-column p-3 m-4">
           <p className="cta-header">Let's Begin Saving Food</p>
-          <button className="CTAbtn btn btn-primary my-2 py-2">
+          <NavLink to="/sign-up"><button className="CTAbtn btn btn-primary my-2 py-2">
             Sign-up as a Business
-          </button>
+          </button></NavLink>
           <button className="CTAbtn btn btn-primary my-2 py-2">
             Sign-up as an NGO
           </button>
