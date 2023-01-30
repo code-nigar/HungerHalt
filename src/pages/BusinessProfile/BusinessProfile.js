@@ -1,69 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import Headerr from "../../components/Header/Header";
 import "./BusinessProfile.css";
-import { useState } from "react";
-import { db } from "../../config/config";
-import { collection, addDoc, doc, setDoc } from "firebase/firestore"; 
+import CurrentListing from "./CurrentListing";
+import BookedListing from "./BookedListing"
+import ContributionHistory from "./ContributionHistory"
+import NewPostModal from "./NewPostModal";
 
 export default function BusinessProfile() {
   const { id } = useParams();
-  const [FoodName, setFoodName] = useState("");
-  const [FoodType, setFoodType] = useState("");
-  const [FoodQtt, setFoodQtt] = useState(0);
-  const [FoodPickup, setFoodPickup] = useState("");
-  const [FoodValidity, setFoodValidity] = useState("")
 
-  const makeNewPost =  async (e) => {
-    e.preventDefault();
-    try {
-        const docRef = await addDoc(collection(db, "Businesses"), {
-            FoodName: FoodName,
-            FoodType: FoodType,
-            FoodQtt: FoodQtt,
-            FoodPickup: FoodPickup,
-            FoodValidity: FoodValidity,
-            postedBy: id,
-            bookedStatus: false,
-            doneStatus: false
-        });
-        // await setDoc(doc(db, "Businesses", id), {
-        //     FoodName: FoodName,
-        //     FoodType: FoodType,
-        //     FoodQtt: FoodQtt,
-        //     FoodPickup: FoodPickup,
-        //     FoodValidity: FoodValidity
-        // });
-        // db.collection('Businesses').doc(id).add({
-        //     FoodName: FoodName,
-        //     FoodType: FoodType,
-        //     FoodQtt: FoodQtt,
-        //     FoodPickup: FoodPickup,
-        //     FoodValidity: FoodValidity
-        // });
-        console.log("Document written with ID: ", docRef.id);
-      } catch (e) {
-        console.error("Error adding document: ", e);
-      }
-  };
+  const [toggleTab, setToggleTab] = useState(1);
+  // const [openModal, setOpenModal] = useState(false);
+  // const onClose = () => {
+  //   setOpenModal(!openModal);
+  // };
 
+  const showListingContent = (tabNo) => {
+    if(tabNo === 2){
+      return (
+        <BookedListing/>
+      )
+    }
+    else if (tabNo === 3) {
+      return(
+        <ContributionHistory/>
+      )
+    } else {
+      return (
+        <CurrentListing/>
+      )
+    }
+  }
   return (
-    <div>
+    <div className="business-page">
       <Headerr />
-      <div className="cover-container shadow-lg">
+      <div className="cover-container">
         <img
           src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8YmFrZXJ5fGVufDB8fDB8fA%3D%3D&w=1000&q=80"
-          alt="cover Photo"
+          alt="cover"
         />
       </div>
       <div className="main-container">
         <div className="left-container">
-          <div className="profile-image">
+          <div className="profile">
             <img
               src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8YmFrZXJ5fGVufDB8fDB8fA%3D%3D&w=1000&q=80"
-              alt="profile Photo"
+              alt="profile"
             />
-            <div className="profile-info">
+            <div className="profile-info mt-4">
               <h3>Bakey Bakery</h3>
               <p>Contribution level: HERO</p>
               <p>Donation Count: 100</p>
@@ -72,71 +57,19 @@ export default function BusinessProfile() {
         </div>
 
         <div className="right-container">
-          <div className="new-post">
-            <h2>make a new post</h2>
-            <div className="form-container">
-              <form className="newPost-form p-4 d-flex flex-column align-items-center">
-                <div className="fields d-flex flex-column justify-content-center px-4">
-                  <div className="input-field d-flex flex-row justify-content-between mt-3">
-                    <label htmlFor="food-name">Food Name:</label>
-                    <input
-                      type="text"
-                      name="food-name"
-                      id=""
-                      value={FoodName}
-                      onChange={(e) => setFoodName(e.target.value)}
-                    />
-                  </div>
-                  <div className="input-field d-flex flex-row justify-content-between mt-3">
-                    <label htmlFor="food-type">Food Type:</label>
-                    <input
-                      type="text"
-                      name="food-type"
-                      id=""
-                      value={FoodType}
-                      onChange={(e) => setFoodType(e.target.value)}
-                    />
-                  </div>
-                  <div className="input-field d-flex flex-row justify-content-between mt-3">
-                    <label htmlFor="food-qtt">Food Quantity </label>
-                    <input
-                      type="number"
-                      name="food-qtt"
-                      id=""
-                      value={FoodQtt}
-                      onChange={(e) => setFoodQtt(e.target.value)}
-                    />
-                  </div>
-                  <div className="input-field d-flex flex-row justify-content-between mt-3">
-                    <label htmlFor="pickup-point">pickup Location</label>
-                    <input
-                      type="text"
-                      name="pickup-point"
-                      id=""
-                      value={FoodPickup}
-                      onChange={(e) => setFoodPickup(e.target.value)}
-                    />
-                  </div>
-                  <div className="input-field d-flex flex-row justify-content-between mt-3">
-                    <label htmlFor="pickup-point">Food Validity</label>
-                    <input
-                      type="date"
-                      name="postVld"
-                      id=""
-                      value={FoodValidity}
-                      onChange={(e) => setFoodValidity(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <button
-                  type="submit"
-                  className="btn btn-primary m-4"
-                  onClick={(e) => makeNewPost(e)}
-                >
-                  Make new Post
-                </button>
-              </form>
-            </div>
+          <div className="tabs">
+            <ul className="tabs-item">
+              <li onClick={()=>{setToggleTab(1)}} className={(toggleTab === 1)? "active-tab" : "inactive-tab"}>Current Listing</li>
+              <li onClick={()=>{setToggleTab(2)}} className={(toggleTab === 2)? "active-tab" : "inactive-tab"}>Booked Listing</li>
+              <li onClick={()=>{setToggleTab(3)}} className={(toggleTab === 3)? "active-tab" : "inactive-tab"}>Your Contribution</li>
+            </ul>
+          </div>
+          <div className="selected-window-container">
+            {/* <div className="new-post">
+              <button onClick={onClose}>make a new post</button>
+              <NewPostModal open={openModal} id={id} onClose={onClose} />
+            </div> */}
+            {showListingContent(toggleTab)}
           </div>
         </div>
       </div>

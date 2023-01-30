@@ -1,11 +1,54 @@
-import React from "react";
+import React, {useContext} from "react";
 import "../Header/Header.css";
 import { NavLink, Outlet } from "react-router-dom";
+import { userContext } from '../../App'
 // import { Breadcrumb, Layout, Menu, theme } from 'antd';
 // import 'antd/dist/reset.css';
 // const { Header, Content, Footer } = Layout;
 
 function Headerr() {
+
+  const {state, dispatch} = useContext(userContext );
+
+  const RenderListItems = () => {
+    if(state){
+      return (
+        <>
+          <li>
+            <NavLink to="/">Home</NavLink>
+          </li>
+          <li>
+            <NavLink to="donate">Donate</NavLink>
+          </li>
+          <li>
+            <NavLink to="blogs">Blogs</NavLink>
+          </li>
+          <li>
+            <NavLink to="/">Sign-out</NavLink>
+          </li>
+        </>
+      );
+    }else{
+      return (
+        <>
+          <li>
+            <NavLink to="/">Home</NavLink>
+          </li>
+          <li>
+            <NavLink to="donate">Donate</NavLink>
+          </li>
+          <li>
+            <NavLink to="blogs">Blogs</NavLink>
+          </li>
+          <li>
+            <NavLink to="sign-in">Sign-in</NavLink>
+          </li>
+        </>
+      );
+    }
+    
+  };
+
   return (
     <div>
       <header className="header d-flex flex-row justify-content-between p-2 align-items-center bg-dark shadow">
@@ -23,21 +66,10 @@ function Headerr() {
           <li><a href="#">Blogs</a></li>
           <li><a href="#">Donate</a></li>
           <li><a href="#">Sign-in</a></li> */}
-            <li>
-              <NavLink to="/">Home</NavLink>
-            </li>
-            <li>
-              <NavLink to="donate">Donate</NavLink>
-            </li>
-            <li>
-              <NavLink to="blogs">Blogs</NavLink>
-            </li>
-            <li>
-              <NavLink to="sign-in">Sign-in</NavLink>
-            </li>
+            <RenderListItems/>
           </ul>
         </div>
-      </header> 
+      </header>
       <main>
         <Outlet />
       </main>

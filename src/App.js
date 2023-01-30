@@ -8,6 +8,8 @@ import BlogPage from "./pages/BlogPage/BlogPage";
 import SigninPage from "./pages/SigninPage/SigninPage";
 import SignupBusiness from "./pages/SignupPage/SignupBusiness";
 import BusinessProfile from "./pages/BusinessProfile/BusinessProfile";
+import { createContext, useReducer } from "react";
+import { reducer, initialState } from "./reducer/UseReducer";
 // import Headerr from "./components/Header/Header";
 
 // const router = createBrowserRouter(
@@ -21,10 +23,11 @@ import BusinessProfile from "./pages/BusinessProfile/BusinessProfile";
 //     </Route>
 //   )
 // )
+const userContext = createContext();
 
-function App() {
+const Routing =()=>{
   return (
-    <BrowserRouter>
+      <BrowserRouter>
       <div className="App">
         <Routes>
           <Route path="/" element={<WelcomePage />} />
@@ -38,7 +41,21 @@ function App() {
         {/* <RouterProvider router={router} /> */}
       </div>
     </BrowserRouter>
+  )
+}
+
+function App() {
+
+  const [ state, dispatch ] =  useReducer(reducer, initialState);
+
+  return (
+    <>
+      <userContext.Provider value={{state, dispatch}}>
+        <Routing/>
+      </userContext.Provider>
+    </>
   );
 }
 
 export default App;
+export {userContext};

@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Headerr from "../../components/Header/Header";
 import "./SignupBusiness.css";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import {app} from '../../config/config.js'
 import { useNavigate } from "react-router-dom";
-import { createContext } from "react";
+import { userContext } from '../../App'
+// import { createContext } from "react";
 
 function SignupBusiness() {
+
+  const {state, dispatch} = useContext(userContext );
+
   const [Bname, setBname] = useState("");
   const [Bemail, setBemail] = useState("");
   const [Bpass, setBpass] = useState("");
@@ -22,6 +26,9 @@ function SignupBusiness() {
         // Signed in
         const user = userCredential.user;
         console.log("user registered as", user)
+        //dispatch trigger the action to replace login switch from navbar with logout switch
+        dispatch({type:"USER", payload:true})
+        //navigate user to business-profile page
         navigate(`/BusinessProfile/${user.uid}`)
         // ...
       })
