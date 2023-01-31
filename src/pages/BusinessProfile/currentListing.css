@@ -2,3 +2,33 @@
     margin-top: 20px;
     width: 90%;
 }
+.currentlisting-card{
+    margin: 20px;
+    padding: 20px;
+    background-color: #444;
+    border-radius: 10px;
+}
+/*
+ .clc-form{
+} 
+
+.clc-fields{
+}
+*/
+.clc-input-field>input{
+    background:transparent;
+    border: none;
+    border-bottom: 1px solid #999;
+    margin-left: 10px;
+}
+#name-input{
+    min-width: 85%;
+}
+.request-count{
+    border-radius: 20px;
+    padding: 2px 10px;
+    background-color: #333;
+}
+input[disabled] {
+    color: #ddd;
+ }

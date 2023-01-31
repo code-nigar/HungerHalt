@@ -10,11 +10,21 @@ export default function NewPostModal(props) {
     const [FoodType, setFoodType] = useState("");
     const [FoodQtt, setFoodQtt] = useState(0);
     const [FoodPickup, setFoodPickup] = useState("");
-    const [FoodValidity, setFoodValidity] = useState("")
+    const [FoodValidity, setFoodValidity] = useState(null);
   
+
+    const cleanInputFields = () => {
+      setFoodName("");
+      setFoodType("");
+      setFoodQtt(0);
+      setFoodPickup("");
+      setFoodValidity(null)
+    }
+
     const makeNewPost =  async (e) => {
       e.preventDefault();
-      try {
+      if(FoodName && FoodType && FoodQtt && FoodPickup && FoodValidity){
+        try {
           const docRef = await addDoc(collection(db, "Businesses"), {
               FoodName: FoodName,
               FoodType: FoodType,
@@ -23,12 +33,20 @@ export default function NewPostModal(props) {
               FoodValidity: FoodValidity,
               postedBy: props.id,
               bookedStatus: false,
-              doneStatus: false
+              doneStatus: false,
+              creationDate: new Date()
           });
           console.log("Document written with ID: ", docRef.id);
+          cleanInputFields();
+          props.onClose();
+          alert("added successfully");
         } catch (e) {
           console.error("Error adding document: ", e);
         }
+      }
+      else{
+        alert("fill all inputs");
+      }
     };
 
   if (!props.open) {
@@ -50,7 +68,6 @@ export default function NewPostModal(props) {
                   type="text"
                   name="food-name"
                   id=""
-                  value={FoodName}
                   placeholder="enter a food name"
                   onChange={(e) => setFoodName(e.target.value)}
                 />
@@ -61,7 +78,6 @@ export default function NewPostModal(props) {
                   type="text"
                   name="food-type"
                   id=""
-                  value={FoodType}
                   placeholder="enter a food type"
                   onChange={(e) => setFoodType(e.target.value)}
                 />
@@ -72,8 +88,10 @@ export default function NewPostModal(props) {
                   type="number"
                   name="food-qtt"
                   id=""
-                  value={FoodQtt}
-                  onChange={(e) => setFoodQtt(e.target.value)}
+                  placeholder="10"
+                  min={10}
+                  max={100000}
+                  onChange={(e) => setFoodQtt(+(e.target.value))}
                 />
               </div>
               <div className="input-field d-flex flex-row justify-content-between mt-3">
@@ -82,7 +100,6 @@ export default function NewPostModal(props) {
                   type="text"
                   name="pickup-point"
                   id=""
-                  value={FoodPickup}
                   placeholder="Karachi"
                   onChange={(e) => setFoodPickup(e.target.value)}
                 />
@@ -93,8 +110,7 @@ export default function NewPostModal(props) {
                   type="date"
                   name="postVld"
                   id=""
-                  value={FoodValidity}
-                  onChange={(e) => setFoodValidity(e.target.value)}
+                  onChange={(e) => setFoodValidity(new Date(e.target.value))}
                 />
               </div>
             </div>

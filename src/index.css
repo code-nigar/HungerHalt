@@ -16,7 +16,14 @@ code {
   background-color: #FD2C63;
   color: #fff;
 }
-.btn-primary:hover{
+.btn-primary:hover , .btn-outline-primary:hover{
   background-color: #FDE82C;
   color: #111;
+}
+.btn-outline-primary{
+  border-color: #FDE82C;
+  color: #fff;
+}
+.no-display{
+  display: none;
 }
