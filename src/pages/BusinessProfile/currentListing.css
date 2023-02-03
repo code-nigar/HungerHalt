@@ -32,3 +32,11 @@
 input[disabled] {
     color: #ddd;
  }
+
+/* .highlight-edit-option > input{
+    pointer-events: all;
+}
+
+.disable-inp-opt{
+    pointer-events: none;
+} */

@@ -11,10 +11,12 @@ export default function CurrentListing() {
   const [disable, setDisable] = useState(true);
   const [CL_data, setCL_Data] = useState([]);
 
+  //fetch listing data on initial load
   useEffect(() => {
     getListingData();
   }, []);
 
+  //switch new post modal display
   const onClose = () => {
     setOpenModal(!openModal);
   };
@@ -31,7 +33,13 @@ export default function CurrentListing() {
       // doc.data() is never undefined for query doc snapshots
       console.log(doc.id, " => ", doc.data());
       //setCL_Data(CL_data.push(doc.data()));
-      dataobt.push(doc.data());
+      //dataobt.push(doc.data());
+      dataobt.push(
+        {
+          id: doc.id,
+          data: doc.data()
+        }
+      );
     });
     setCL_Data(dataobt);
   };
@@ -48,14 +56,28 @@ export default function CurrentListing() {
   const editCardInfo = (e, post_id) => {
     e.preventDefault();
     //first enable edit option
-    setDisable(false);
+    //setDisable(false);
+    console.log(e.target.parentNode.parentNode);
+    e.target.parentNode.parentNode.firstChild.firstChild.lastChild.removeAttribute('disabled'); //food name
+    e.target.parentNode.parentNode.firstChild.childNodes[1].firstChild.lastChild.removeAttribute('disabled'); //food type
+    e.target.parentNode.parentNode.firstChild.childNodes[1].lastChild.lastChild.removeAttribute('disabled'); //food qtt
+    e.target.parentNode.parentNode.firstChild.childNodes[2].firstChild.lastChild.removeAttribute('disabled'); //food pckup
+    e.target.parentNode.parentNode.firstChild.childNodes[2].lastChild.lastChild.removeAttribute('disabled'); //food validi
+    e.target.parentNode.parentNode.lastChild.lastChild.classList.remove('no-display')
     //secondly, update the info to DB
   };
 
-  function SaveInfoChanges(e) {
+  function SaveInfoChanges(e, post_id) {
     e.preventDefault();
     //first enable edit option
-    setDisable(true);
+    
+    e.target.parentNode.parentNode.firstChild.firstChild.lastChild.setAttribute('disabled',true); //food name
+    e.target.parentNode.parentNode.firstChild.childNodes[1].firstChild.lastChild.setAttribute('disabled',true); //food type
+    e.target.parentNode.parentNode.firstChild.childNodes[1].lastChild.lastChild.setAttribute('disabled',true); //food qtt
+    e.target.parentNode.parentNode.firstChild.childNodes[2].firstChild.lastChild.setAttribute('disabled',true); //food pckup
+    e.target.parentNode.parentNode.firstChild.childNodes[2].lastChild.lastChild.setAttribute('disabled',true); //food validi
+    e.target.classList.add('no-display')
+    //setDisable(true);
   }
 
   const renderListingCard = (cld) => {
@@ -66,7 +88,7 @@ export default function CurrentListing() {
       return (
         <>
           {cld.map((x) => (
-            <div className="currentlisting-card">
+            <div className="currentlisting-card" key={x.id}>
               <form className="clc-form">
                 <div className="clc-fields d-flex flex-column justify-content-start align-content-center">
                   <div className="clc-input-field mx-2 d-flex flex-row justify-content-start ">
@@ -75,7 +97,7 @@ export default function CurrentListing() {
                       type="text"
                       name="food-name"
                       id="name-input"
-                      value={x.FoodName}
+                      value={x.data.FoodName}
                       disabled={disable}
                       placeholder="enter a food name"
                     />
@@ -87,7 +109,7 @@ export default function CurrentListing() {
                         type="text"
                         name="food-type"
                         id="type-input"
-                        value={x.FoodType}
+                        value={x.data.FoodType}
                         disabled={disable}
                         placeholder="enter a food type"
                       />
@@ -98,7 +120,7 @@ export default function CurrentListing() {
                         type="number"
                         name="food-qtt"
                         id="qtt-input"
-                        value={x.FoodQtt}
+                        value={x.data.FoodQtt}
                         disabled={disable}
                         placeholder="2"
                       />
@@ -111,7 +133,7 @@ export default function CurrentListing() {
                         type="text"
                         name="pickup-point"
                         id="location-input"
-                        value={x.FoodPickup}
+                        value={x.data.FoodPickup}
                         disabled={disable}
                         placeholder="Karachi"
                       />
@@ -122,7 +144,7 @@ export default function CurrentListing() {
                         type="date"
                         name="postVld"
                         id="validity-input"
-                        value={x.FoodV}
+                        value={x.data.FoodValidity.Date}
                         disabled={disable}
                       />
                     </div>
@@ -138,14 +160,15 @@ export default function CurrentListing() {
                       disable ? "btn btn-outline-primary mt-4" : "no-display"
                     }
                     onClick={(e) => {
-                      editCardInfo(e, 1);
+                      editCardInfo(e, x.id);
                     }}
                   >
                     Edit
                   </button>
                   <button
                     className={
-                      !disable ? "btn btn-outline-primary mt-4" : "no-display"
+                      // !disable ? "btn btn-outline-primary mt-4" : "no-display"
+                      "btn btn-outline-primary mt-4 no-display"
                     }
                     onClick={SaveInfoChanges}
                   >
