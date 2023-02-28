@@ -1,34 +1,57 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import "../Header/Header.css";
 import { NavLink, Outlet } from "react-router-dom";
-import { userContext } from '../../App'
+import { userContext } from "../../App";
+import { getAuth, signOut } from "firebase/auth";
 // import { Breadcrumb, Layout, Menu, theme } from 'antd';
 // import 'antd/dist/reset.css';
 // const { Header, Content, Footer } = Layout;
 
 function Headerr() {
+  const { state, dispatch } = useContext(userContext);
 
-  const {state, dispatch} = useContext(userContext );
+  const signOutfunc = (e) => {
+    state = !state;
+    e.preventDefault();
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+        console.log("Sign-out successful")
+      })
+      .catch((error) => {
+        // An error happened.
+        console.log("sign-out error >> ",error);
+      });
+  };
+  
 
   const RenderListItems = () => {
-    if(state){
+    if (state) {
       return (
         <>
           <li>
             <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <NavLink to="donate">Donate</NavLink>
+            <NavLink to="/donate">Donate</NavLink>
           </li>
           <li>
-            <NavLink to="blogs">Blogs</NavLink>
+            <NavLink to="/blogs">Blogs</NavLink>
           </li>
           <li>
-            <NavLink to="/">Sign-out</NavLink>
+            <NavLink
+              to="/"
+              onClick={(e) => {
+                signOutfunc(e);
+              }}
+            >
+              Sign-out
+            </NavLink>
           </li>
         </>
       );
-    }else{
+    } else {
       return (
         <>
           <li>
@@ -46,7 +69,6 @@ function Headerr() {
         </>
       );
     }
-    
   };
 
   return (
@@ -66,7 +88,7 @@ function Headerr() {
           <li><a href="#">Blogs</a></li>
           <li><a href="#">Donate</a></li>
           <li><a href="#">Sign-in</a></li> */}
-            <RenderListItems/>
+            <RenderListItems />
           </ul>
         </div>
       </header>

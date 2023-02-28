@@ -18,7 +18,7 @@ export default function NewPostModal(props) {
       setFoodType("");
       setFoodQtt(0);
       setFoodPickup("");
-      setFoodValidity(null)
+      setFoodValidity(null);
     }
 
     const makeNewPost =  async (e) => {
@@ -73,14 +73,22 @@ export default function NewPostModal(props) {
                 />
               </div>
               <div className="input-field d-flex flex-row justify-content-between mt-3">
-                <label htmlFor="food-type">Food Type:</label>
+                {/* <label htmlFor="food-type">Food Type:</label>
                 <input
                   type="text"
                   name="food-type"
                   id=""
                   placeholder="enter a food type"
                   onChange={(e) => setFoodType(e.target.value)}
-                />
+                /> */}
+                <label htmlFor="food-type">Food Type:</label>
+                <select id="food-type" class="input-box mb-4" required="" onChange={(e) => setFoodType(e.target.value)}>
+                  <option disabled="" selected="" value={FoodType}>Select Food Type</option>
+                  <option value="Bakery Item">Bakery Item</option>
+                  <option value="Prepared Food">Prepared Food</option>
+                  <option value="Containered Food">Containered Food </option>
+                  <option value="Dairy Product">Dairy Product</option>
+                </select>
               </div>
               <div className="input-field d-flex flex-row justify-content-between mt-3">
                 <label htmlFor="food-qtt">Food Quantity </label>

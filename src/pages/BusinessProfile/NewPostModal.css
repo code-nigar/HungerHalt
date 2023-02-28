@@ -30,7 +30,7 @@
     min-width: 500px;
     max-width: inherit;
 }
-.input-field>input{
+.input-field>input,  .input-field>select{
     min-width: 300px;
     padding: 2px 10px;
 }
