@@ -58,13 +58,13 @@ function Headerr() {
             <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <NavLink to="donate">Donate</NavLink>
+            <NavLink to="/donate">Donate</NavLink>
           </li>
           <li>
-            <NavLink to="blogs">Blogs</NavLink>
+            <NavLink to="/blogs">Blogs</NavLink>
           </li>
           <li>
-            <NavLink to="sign-in">Sign-in</NavLink>
+            <NavLink to="/sign-in">Sign-in</NavLink>
           </li>
         </>
       );

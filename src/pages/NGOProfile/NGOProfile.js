@@ -1,13 +1,13 @@
 import React from "react";
 import Headerr from "../../components/Header/Header";
 
-function BlogPage() {
+function NGOProfile() {
   return (
     <>
       <Headerr />
-      <div>BlogPage</div>
+      <div>NGOProfile</div>
     </>
   );
 }
 
-export default BlogPage;
+export default NGOProfile;

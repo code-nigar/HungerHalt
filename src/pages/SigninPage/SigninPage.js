@@ -2,12 +2,14 @@ import React, { useContext, useState } from "react";
 import Headerr from "../../components/Header/Header";
 import "./SignIn.css";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import {app} from '../../config/config.js'
+import { app } from "../../config/config.js";
 import { useNavigate } from "react-router-dom";
-import { userContext } from '../../App'
+import { userContext } from "../../App";
 
 function SigninPage() {
-  const {state, dispatch} = useContext(userContext );
+  const { state, dispatch } = useContext(userContext);
+
+  const [NGOSignin, setNGOSignin] = useState(false);
 
   const [Bemail, setBemail] = useState("");
   const [Bpass, setBpass] = useState("");
@@ -22,11 +24,15 @@ function SigninPage() {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log("user signed in as", user)
+        console.log("user signed in as", user);
         //dispatch trigger the action to replace login switch from navbar with logout switch
-        dispatch({type:"USER", payload:true})
+        dispatch({ type: "USER", payload: true });
         //navigate user to business-profile page
-        navigate(`/BusinessProfile/${user.uid}`)
+        if (!NGOSignin) {
+          navigate(`/BusinessProfile/${user.uid}`);
+        } else {
+          navigate(`/NGOProfile/${user.uid}`);
+        }
         // ...
       })
       .catch((error) => {
@@ -37,6 +43,11 @@ function SigninPage() {
       });
   };
 
+  const toggleForm =(e)=>{
+    e.preventDefault();
+    setNGOSignin(!NGOSignin);
+  }
+  
   return (
     <div className="signin-page">
       <Headerr />
@@ -46,7 +57,7 @@ function SigninPage() {
         </p>
         <form className="signin-form p-4 d-flex flex-column align-items-center">
           <div className="form-heading mb-4">
-            <h3>Sign In As a Business</h3>
+            {NGOSignin ? <h3>Sign In As an NGO</h3> : <h3>Sign In As a Business</h3>}
           </div>
           <div className="fields d-flex flex-column justify-content-center px-4">
             <div className="input-field d-flex flex-row justify-content-between mt-3">
@@ -70,13 +81,19 @@ function SigninPage() {
               />
             </div>
           </div>
-          <button type="submit" className="btn btn-primary m-4" onClick={(e) => signInfunc(e)}>
+          <button
+            type="submit"
+            className="btn btn-primary m-4"
+            onClick={(e) => signInfunc(e)}
+          >
             Sign In
           </button>
+
+          <button onClick={(e)=> toggleForm(e)}>Sign in As {NGOSignin ? `a Business` : ` an NGO`}</button>
         </form>
       </div>
     </div>
   );
 }
 
-export default SigninPage
+export default SigninPage;

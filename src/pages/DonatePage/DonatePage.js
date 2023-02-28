@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import Headerr from "../../components/Header/Header";
 
 function DonatePage() {
   return (
-    <div>DonatePage</div>
-  )
+    <>
+      <Headerr />
+      <div>DonatePage</div>
+    </>
+  );
 }
 
-export default DonatePage
+export default DonatePage;

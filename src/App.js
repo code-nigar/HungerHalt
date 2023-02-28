@@ -8,6 +8,8 @@ import BlogPage from "./pages/BlogPage/BlogPage";
 import SigninPage from "./pages/SigninPage/SigninPage";
 import SignupBusiness from "./pages/SignupPage/SignupBusiness";
 import BusinessProfile from "./pages/BusinessProfile/BusinessProfile";
+import NGOProfile from "./pages/NGOProfile/NGOProfile";
+import SignupNGO from "./pages/SignupPage/SignupNGO";
 import { createContext, useReducer } from "react";
 import { reducer, initialState } from "./reducer/UseReducer";
 // import Headerr from "./components/Header/Header";
@@ -34,8 +36,10 @@ const Routing =()=>{
           <Route path="donate" element={<DonatePage />} />
           <Route path="blogs" element={<BlogPage />} />
           <Route path="sign-in" element={<SigninPage />} />
-          <Route path="sign-up" element={<SignupBusiness />} />
+          <Route path="sign-up-biz" element={<SignupBusiness />} />
+          <Route path="sign-up-ngo" element={<SignupNGO />} />
           <Route path="/BusinessProfile/:id" element={<BusinessProfile />}/>
+          <Route path="/NGOProfile/:id" element={<NGOProfile />}/>
         </Routes>
         {/* <WelcomePage/> */}
         {/* <RouterProvider router={router} /> */}
