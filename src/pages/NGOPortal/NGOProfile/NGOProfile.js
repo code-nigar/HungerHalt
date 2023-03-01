@@ -1,11 +1,10 @@
 import React from "react";
-import Headerr from "../../components/Header/Header";
 
-function NGOProfile() {
+function NGOProfile(props) {
   return (
     <>
-      <Headerr />
       <div>NGOProfile</div>
+      <p>welcome {props.NgoID}</p>
     </>
   );
 }

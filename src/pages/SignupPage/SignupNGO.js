@@ -29,7 +29,7 @@ function SignupNGO() {
           //dispatch trigger the action to replace login switch from navbar with logout switch
           dispatch({type:"USER", payload:true})
           //navigate user to ngo-profile page
-          navigate(`/NGOProfile/${user.uid}`)
+          navigate(`/NGOPortal/${user.uid}`)
           // ...
         })
         .catch((error) => {

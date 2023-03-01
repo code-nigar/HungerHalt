@@ -31,7 +31,7 @@ function SigninPage() {
         if (!NGOSignin) {
           navigate(`/BusinessProfile/${user.uid}`);
         } else {
-          navigate(`/NGOProfile/${user.uid}`);
+          navigate(`/NGOPortal/${user.uid}`);
         }
         // ...
       })

@@ -8,7 +8,8 @@ import BlogPage from "./pages/BlogPage/BlogPage";
 import SigninPage from "./pages/SigninPage/SigninPage";
 import SignupBusiness from "./pages/SignupPage/SignupBusiness";
 import BusinessProfile from "./pages/BusinessProfile/BusinessProfile";
-import NGOProfile from "./pages/NGOProfile/NGOProfile";
+import NGOProfile from "./pages/NGOPortal/NGOProfile/NGOProfile";
+import NGOPortal from "./pages/NGOPortal/NGOPortal";
 import SignupNGO from "./pages/SignupPage/SignupNGO";
 import { createContext, useReducer } from "react";
 import { reducer, initialState } from "./reducer/UseReducer";
@@ -39,7 +40,7 @@ const Routing =()=>{
           <Route path="sign-up-biz" element={<SignupBusiness />} />
           <Route path="sign-up-ngo" element={<SignupNGO />} />
           <Route path="/BusinessProfile/:id" element={<BusinessProfile />}/>
-          <Route path="/NGOProfile/:id" element={<NGOProfile />}/>
+          <Route path="/NGOPortal/:id" element={<NGOPortal />}/>
         </Routes>
         {/* <WelcomePage/> */}
         {/* <RouterProvider router={router} /> */}

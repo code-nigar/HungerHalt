@@ -1,0 +1,15 @@
+.portal-page{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    background-color: #222;
+    min-height: 100vh;
+}
+
+.sidebar-container{
+    position: absolute;
+}
+.selected-window-container{
+    width: inherit;
+}
+
