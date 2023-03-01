@@ -88,11 +88,11 @@ export default function CurrentListing() {
       return (
         <>
           {cld.map((x) => (
-            <div className="currentlisting-card" key={x.id}>
+            <div className="currentlisting-card mb-2" key={x.id}>
               <form className="clc-form">
                 <div className="clc-fields d-flex flex-column justify-content-start align-content-center">
                   <div className="clc-input-field mx-2 d-flex flex-row justify-content-start ">
-                    <label htmlFor="food-name">Food Name:</label>
+                    <label className="bold" htmlFor="food-name">Food Name:</label>
                     <input
                       type="text"
                       name="food-name"
@@ -104,7 +104,7 @@ export default function CurrentListing() {
                   </div>
                   <div className="d-flex flex-row flex-wrap justify-content-start">
                     <div className="clc-input-field mx-2 d-flex flex-row justify-content-start mt-3">
-                      <label htmlFor="food-type">Food Type:</label>
+                      <label className="bold" htmlFor="food-type">Food Type:</label>
                       <input
                         type="text"
                         name="food-type"
@@ -115,7 +115,7 @@ export default function CurrentListing() {
                       />
                     </div>
                     <div className="clc-input-field mx-2 d-flex flex-row justify-content-start mt-3">
-                      <label htmlFor="food-qtt">Food Quantity:</label>
+                      <label className="bold" htmlFor="food-qtt">Food Quantity:</label>
                       <input
                         type="number"
                         name="food-qtt"
@@ -128,7 +128,7 @@ export default function CurrentListing() {
                   </div>
                   <div className="d-flex flex-row flex-wrap justify-content-start">
                     <div className="clc-input-field mx-2 d-flex flex-row justify-content-start mt-3">
-                      <label htmlFor="pickup-point">Food Pickup Location</label>
+                      <label className="bold" htmlFor="pickup-point">Food Pickup Location:</label>
                       <input
                         type="text"
                         name="pickup-point"
@@ -139,7 +139,7 @@ export default function CurrentListing() {
                       />
                     </div>
                     <div className="clc-input-field mx-2 d-flex flex-row justify-content-start mt-3">
-                      <label htmlFor="pickup-point">Food Validity</label>
+                      <label className="bold" htmlFor="pickup-point">Food Validity:</label>
                       <input
                         type="date"
                         name="postVld"
@@ -153,7 +153,7 @@ export default function CurrentListing() {
                 <div className="d-flex flex-row justify-content-around align-items-baseline mt-2">
                   <p>Created at: 12/4/44</p>
                   <p>
-                    Requests Recieved: <span className="request-count">XX</span>
+                    Requests Recieved: <span className="request-count">{x.data.requests ? x.data.requests.length : '0'}</span>
                   </p>
                   <button
                     className={

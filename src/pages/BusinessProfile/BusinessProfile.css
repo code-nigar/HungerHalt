@@ -69,4 +69,6 @@
     background-color: #333;
     max-width: 90%;
     min-height: 50vh;
+    max-height: auto;
+    padding-bottom: 10px;
 }
