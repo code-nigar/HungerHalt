@@ -11,5 +11,6 @@
 }
 .selected-window-container{
     width: inherit;
+    background-color: transparent;
 }
 

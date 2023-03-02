@@ -1,0 +1,46 @@
+.ngo-profile-page{
+    max-width: 95vw;
+    margin: 15px;
+}
+.cover-container{
+    width: 100%;
+}
+.cover-container img{
+    object-fit:cover;
+    height:35vh;
+    width: inherit;
+}
+.translateY{
+    transform: translateY(-80px);
+}
+.ngo-logo{
+    justify-content: flex-start;
+    align-items: baseline;
+    padding: 0px 30px;
+}
+.ngo-logo>img{
+    border: 10px solid #333;
+    border-radius: 50%;
+    width: 180px;
+    height: 180px;
+    box-shadow: #777 0px 2px 5px;
+    /*transform: translateY(-60px);*/
+}
+.ngo-logo>h1{
+    transform: translateY(-40px);
+    padding-left: 30px;
+    color: #fff;
+    text-transform: capitalize;
+}
+.about-section{
+    color: white;
+    text-align: left;
+    padding: 0px 35px;
+}
+.section-heaading{
+    padding-left: 20px;
+    border-left: 8px solid #fffda4;
+    color: #fffda4;
+    margin: 0;
+    margin-bottom: 15px;
+}
