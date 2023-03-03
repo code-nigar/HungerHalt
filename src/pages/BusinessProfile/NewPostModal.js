@@ -25,7 +25,7 @@ export default function NewPostModal(props) {
       e.preventDefault();
       if(FoodName && FoodType && FoodQtt && FoodPickup && FoodValidity){
         try {
-          const docRef = await addDoc(collection(db, "Businesses"), {
+          const docRef = await addDoc(collection(db, "Posts"), {
               FoodName: FoodName,
               FoodType: FoodType,
               FoodQtt: FoodQtt,
@@ -33,8 +33,11 @@ export default function NewPostModal(props) {
               FoodValidity: FoodValidity,
               postedBy: props.id,
               bookedStatus: false,
+              bookedFor: "",
               doneStatus: false,
-              creationDate: new Date()
+              creationDate: new Date(),
+              requests : [],
+
           });
           console.log("Document written with ID: ", docRef.id);
           cleanInputFields();

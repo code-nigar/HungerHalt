@@ -23,7 +23,7 @@ function FeedListing() {
   useEffect(() => {
     getListingData();
   }, []);
-  const q = query(collection(db, "Businesses"));
+  const q = query(collection(db, "Posts"));
 
   const getListingData = async () => {
     let dataobt = [];

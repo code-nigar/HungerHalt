@@ -21,7 +21,7 @@ export default function CurrentListing() {
     setOpenModal(!openModal);
   };
 
-  const q = query(collection(db, "Businesses"), where("postedBy", "==", id));
+  const q = query(collection(db, "Posts"), where("postedBy", "==", id));
 
   // var CL_data =[];
 
