@@ -1,0 +1,38 @@
+.countdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1rem;
+  border: 1px solid #000;
+}
+
+.countdown-value {
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-align: center;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.countdown-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  opacity: 0.6;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.countdown-item:not(:last-child) .countdown-value {
+  margin-bottom: 0;
+}
+
+.countdown-item.new-minute .countdown-value {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}

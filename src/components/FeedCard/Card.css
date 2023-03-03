@@ -1,0 +1,41 @@
+.card {
+  background-color: #333;
+  color: #fff;
+  border-radius: 4px;
+  padding: 16px;
+  margin: 12px;
+  max-width: 700px;
+  width: calc(95% - 16px);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.profile-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.user-name {
+  font-weight: bold;
+}
+
+.card-body {
+  font-size: 14px;
+}
+
+.card-item-header{
+    color: #199;
+}
+
+.card-item-detail{
+    border-radius: 12px;
+    padding: 2px 8px;
+    border: 1px solid #222;
+    background-color: #444;
+}
