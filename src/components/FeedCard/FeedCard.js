@@ -1,23 +1,49 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Countdown from "../CountDown/Countdown";
 import "./Card.css";
+import {getDoc, doc } from "firebase/firestore";
+import { db } from "../../config/config";
 
 function FeedCard(props) {
   //const { profileIcon, userName, info } = props;
+
+  const [infoData, setInfoData] = useState(null);
+  const [postyName, setPostyName] = useState("Anonymous");
+  const [postyLogo, setPostyLogo] = useState("");
+
+
+  //fetch listing data on initial load
+  useEffect(() => {
+    getPostyInfo();
+  }, []);
+
+  const getPostyInfo = async () => {
+    const docRef = doc(db, "Businesses", props.info.postedBy);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      console.log("posty info:", docSnap.data());
+      setInfoData(docSnap.data());
+      setPostyName(docSnap.data().name);
+      setPostyLogo(docSnap.data().profilePicUrl);
+    } else {
+      console.log("No such document for posty!");
+    }
+  };
 
   return (
     <div className="card">
       <div className="card-header">
         <img
           src={
-            props.profileIcon
-              ? props.profileIcon
+            postyLogo
+              ? postyLogo
               : "https://snsassociates.com.np/wp-content/uploads/2018/10/2.png"
           }
           alt="Profile Icon"
           className="profile-icon"
         />
-        <span className="user-name">{props.userName}</span>
+        <span className="user-name">{postyName}</span>
       </div>
       <div className="card-body">
         <div className="d-flex flex-row justify-content-start align-items-baseline">

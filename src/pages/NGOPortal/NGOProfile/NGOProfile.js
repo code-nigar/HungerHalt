@@ -1,4 +1,4 @@
-import React , {useEffect, useState} from "react";
+import React , {useEffect, useState, useMemo } from "react";
 import "./NGOProfile.css";
 import DonationTable from "../../../components/DonationTable/DonationTable";
 import BlogPost from "../../../components/BlogPost/BlogPost";
@@ -26,10 +26,8 @@ function NGOProfile(props) {
     if (docSnap.exists()) {
       console.log("NGO info data:", docSnap.data());
       setInfoData(docSnap.data());
-      if(infoData){
-        setNgoName(infoData.name);
-        setNgoAbout(infoData.about);
-      }
+      setNgoName(docSnap.data().name);
+      setNgoAbout(docSnap.data().about);
     } else {
       // doc.data() will be undefined in this case
       console.log("No such document!");
