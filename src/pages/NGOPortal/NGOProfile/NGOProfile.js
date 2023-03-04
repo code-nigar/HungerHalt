@@ -1,9 +1,40 @@
-import React from "react";
+import React , {useEffect, useState} from "react";
 import "./NGOProfile.css";
 import DonationTable from "../../../components/DonationTable/DonationTable";
 import BlogPost from "../../../components/BlogPost/BlogPost";
+import {getDoc, doc } from "firebase/firestore";
+import { db } from "../../../config/config";
 
 function NGOProfile(props) {
+
+  const [infoData, setInfoData] = useState(null);
+  const [ngoAbout, setNgoAbout] =useState("Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit doloribus sequi modi molestias distinctio sunt consequatur, mollitia harum alias?");
+  const [ngoName, setNgoName] = useState("NGO Name");
+  const [ngoLogo, setNgoLogo] = useState("https://www.designmantic.com/logo-images/172145.png?company=Company+Name&slogan=&verify=1");
+  const [ngoBlogs, setNgoBlogs] = useState([]);
+
+
+  //fetch listing data on initial load
+  useEffect(() => {
+    getNGOInfo();
+  }, []);
+
+  const getNGOInfo = async () => {
+    const docRef = doc(db, "NGOs", props.NgoID);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      console.log("NGO info data:", docSnap.data());
+      setInfoData(docSnap.data());
+      if(infoData){
+        setNgoName(infoData.name);
+        setNgoAbout(infoData.about);
+      }
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  };
 
   const donationData = [
     {
@@ -68,24 +99,15 @@ function NGOProfile(props) {
       <div className="translateY">
         <div className="ngo-logo d-flex flex-row mb-4">
           <img
-            src="https://www.designmantic.com/logo-images/172145.png?company=Company+Name&slogan=&verify=1"
+            src={ngoLogo}
             alt="ngo icon"
           />
-          <h1>Juju Foundation</h1>
+          <h1>{ngoName}</h1>
         </div>
         <div className="about-section d-flex flex-column justify-content-start mb-4">
           <h2 className="section-heaading">ABOUT</h2>
           <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate
-            saepe accusantium ducimus, cumque eaque deleniti modi sint?
-            Repellendus nemo delectus illum laboriosam perferendis sed possimus
-            iusto culpa quos alias in eius rem mollitia minus, laudantium,
-            beatae incidunt facere reiciendis sapiente repudiandae! Modi
-            voluptatum ab fugit nam vitae, architecto tempore ipsa hic, vero
-            totam iure possimus sit dolore inventore, omnis debitis adipisci
-            quis optio! Corrupti ex accusantium exercitationem, eos laboriosam
-            accusamus ut magnam earum dolorum minus perspiciatis laudantium
-            distinctio sunt soluta.
+            {ngoAbout}
           </p>
         </div>
 

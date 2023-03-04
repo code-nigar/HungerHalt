@@ -11,6 +11,7 @@ export default function NewPostModal(props) {
     const [FoodQtt, setFoodQtt] = useState(0);
     const [FoodPickup, setFoodPickup] = useState("");
     const [FoodValidity, setFoodValidity] = useState(null);
+    const [qttUnit, setQttUnit] = useState("items")
   
 
     const cleanInputFields = () => {
@@ -19,11 +20,12 @@ export default function NewPostModal(props) {
       setFoodQtt(0);
       setFoodPickup("");
       setFoodValidity(null);
+      setQttUnit("items");
     }
 
     const makeNewPost =  async (e) => {
       e.preventDefault();
-      if(FoodName && FoodType && FoodQtt && FoodPickup && FoodValidity){
+      if(FoodName && FoodType && FoodQtt && FoodPickup && FoodValidity && qttUnit){
         try {
           const docRef = await addDoc(collection(db, "Posts"), {
               FoodName: FoodName,
@@ -31,6 +33,7 @@ export default function NewPostModal(props) {
               FoodQtt: FoodQtt,
               FoodPickup: FoodPickup,
               FoodValidity: FoodValidity,
+              qttUnit: qttUnit,
               postedBy: props.id,
               bookedStatus: false,
               bookedFor: "",
@@ -76,17 +79,9 @@ export default function NewPostModal(props) {
                 />
               </div>
               <div className="input-field d-flex flex-row justify-content-between mt-3">
-                {/* <label htmlFor="food-type">Food Type:</label>
-                <input
-                  type="text"
-                  name="food-type"
-                  id=""
-                  placeholder="enter a food type"
-                  onChange={(e) => setFoodType(e.target.value)}
-                /> */}
                 <label htmlFor="food-type">Food Type:</label>
-                <select id="food-type" class="input-box mb-4" required="" onChange={(e) => setFoodType(e.target.value)}>
-                  <option disabled="" selected="" value={FoodType}>Select Food Type</option>
+                <select id="food-type" class="input-box mb-4" required value={FoodType} onChange={(e) => setFoodType(e.target.value)}>
+                  <option disabled value="">Select Food Type</option>
                   <option value="Bakery Item">Bakery Item</option>
                   <option value="Prepared Food">Prepared Food</option>
                   <option value="Containered Food">Containered Food </option>
@@ -104,6 +99,16 @@ export default function NewPostModal(props) {
                   max={100000}
                   onChange={(e) => setFoodQtt(+(e.target.value))}
                 />
+              </div>
+              <div className="input-field d-flex flex-row justify-content-between mt-3">
+                <label htmlFor="food-qtt-unit">Quantity Measure:</label>
+                <select id="food-qtt-unit" class="input-box mb-4" required value={qttUnit} onChange={(e) => setQttUnit(e.target.value)}>
+                  <option value="items">items</option>
+                  <option value="boxes">boxes</option>
+                  <option value="kg">kg</option>
+                  <option value="ton">ton</option>
+                  <option value="tins">tins</option>
+                </select>
               </div>
               <div className="input-field d-flex flex-row justify-content-between mt-3">
                 <label htmlFor="pickup-point">pickup Location</label>
