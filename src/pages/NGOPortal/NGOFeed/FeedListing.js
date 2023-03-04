@@ -1,29 +1,31 @@
 import React, { useState, useEffect } from "react";
 import FeedCard from "../../../components/FeedCard/FeedCard";
-import { collection, query, getDocs } from "firebase/firestore";
+import { collection, query, getDocs, where } from "firebase/firestore";
 import { db } from "../../../config/config";
+import { useParams } from "react-router-dom";
 
-const data = [
-  {
-    profileIcon:
-      "https://www.designmantic.com/logo-images/172145.png?company=Company+Name&slogan=&verify=1",
-    userName: "John Doe",
-    info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  },
-  {
-    profileIcon: "https://via.placeholder.com/32",
-    userName: "Jane Smith",
-    info: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
-];
+// const data = [
+//   {
+//     profileIcon:
+//       "https://www.designmantic.com/logo-images/172145.png?company=Company+Name&slogan=&verify=1",
+//     userName: "John Doe",
+//     info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+//   },
+//   {
+//     profileIcon: "https://via.placeholder.com/32",
+//     userName: "Jane Smith",
+//     info: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+//   },
+// ];
 
 function FeedListing() {
+  const { id } = useParams();
   const [CL_data, setCL_Data] = useState([]);
   //fetch listing data on initial load
   useEffect(() => {
     getListingData();
   }, []);
-  const q = query(collection(db, "Posts"));
+  const q = query(collection(db, "Posts"), where('requests', 'not-in', [[id]]));
 
   const getListingData = async () => {
     let dataobt = [];
@@ -44,8 +46,8 @@ function FeedListing() {
       {CL_data.map((cardData, index) => (
         <FeedCard
           key={index}
-          profileIcon={cardData.profileIcon}
-          userName={cardData.id}
+          //profileIcon={cardData.profileIcon}
+          cardID={cardData.id}
           info={cardData.data}
         />
       ))}
