@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import FeedCard from "../../../components/FeedCard/FeedCard";
-import { collection, query, getDocs, where } from "firebase/firestore";
+import { collection, query, getDocs, where, onSnapshot } from "firebase/firestore";
 import { db } from "../../../config/config";
 import { useParams } from "react-router-dom";
 
@@ -29,16 +29,26 @@ function FeedListing() {
 
   const getListingData = async () => {
     let dataobt = [];
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
-      dataobt.push({
-        id: doc.id,
-        data: doc.data(),
+  onSnapshot(q, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+        dataobt.push({
+          id: doc.id,
+          data: doc.data(),
+        });
       });
-    });
     setCL_Data(dataobt);
+    });
+    // const querySnapshot = await getDocs(q);
+    // querySnapshot.forEach((doc) => {
+    //   // doc.data() is never undefined for query doc snapshots
+    //   console.log(doc.id, " => ", doc.data());
+    //   dataobt.push({
+    //     id: doc.id,
+    //     data: doc.data(),
+    //   });
+    // });
+    // setCL_Data(dataobt);
   };
   return (
     <div className="d-flex flex-column justify-content-center align-items-center">

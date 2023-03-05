@@ -69,9 +69,9 @@ export default function BusinessProfile() {
               alt="profile"
             />
             <div className="profile-info mt-4">
-              <h3 className="text-capitalize">{infoData.name}</h3>
+              <h3 className="text-capitalize">{infoData ? infoData.name : "biz name"}</h3>
               <p>Contribution level: HERO</p>
-              <p>Donation Count: {infoData.contributionCount}</p>
+              <p>Donation Count: {infoData ? infoData.contributionCount : "0"}</p>
             </div>
           </div>
         </div>
