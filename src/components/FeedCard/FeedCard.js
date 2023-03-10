@@ -9,12 +9,27 @@ import {
   arrayUnion
 } from "firebase/firestore";
 import { db } from "../../config/config";
+import axios from "axios"
+
+const updatePost = async (postId, request) => {
+  try {
+    const res = await axios.put(`http://localhost:5000/post/${postId}`, { request });
+    return res.data;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
 
 function FeedCard(props) {
+  
   //const { profileIcon, userName, info } = props;
   const { id } = useParams();
-  const postyID = props.info.postedBy;
-  const cardID = props.cardID;
+  //const postyID = props.info.postedBy;
+  const postyID = props.info.PostedBy;
+  //const cardID = props.cardID;
+  const cardID = props.info._id;
+  const showReqBtn = props.showReqBtn;
   //const [infoData, setInfoData] = useState(null);
   const [postyName, setPostyName] = useState("Anonymous");
   const [postyLogo, setPostyLogo] = useState("");
@@ -41,10 +56,16 @@ function FeedCard(props) {
   const requestBiz = async (e, cid) => {
     e.preventDefault();
     //insert ngoid to post requests array
-    const cardRef = doc(db, "Posts", cid);
-    await updateDoc(cardRef, {
-      requests: arrayUnion(id),
-    });
+    // const cardRef = doc(db, "Posts", cid);
+    // await updateDoc(cardRef, {
+    //   requests: arrayUnion(id),
+    // });
+    try {
+      const updatedPost = await updatePost(cid, id);
+      console.log("request added >> ",updatedPost);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -77,9 +98,11 @@ function FeedCard(props) {
           </div>
           <div className="mx-2 card-item-validity d-flex flex-row justify-content-start flex-wrap align-items-baseline">
             <p className="lead mx-2">Remaining Time: </p>
-            <Countdown seconds={props.info.FoodValidity.seconds} />
+            <Countdown seconds={Math.floor(new Date(props.info.FoodValidity).getTime() / 1000)} />
           </div>
         </div>
+        {
+          showReqBtn &&
         <button
           className="btn btn-primary my-3 mx-2"
           onClick={(e) => {
@@ -88,6 +111,16 @@ function FeedCard(props) {
         >
           Request
         </button>
+        }
+        {
+          !showReqBtn &&
+        <button
+          className="btn btn-primary my-3 mx-2"
+          
+        >
+          Remove Request
+        </button>
+        }
       </div>
     </div>
   );

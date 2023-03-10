@@ -3,6 +3,7 @@ import FeedCard from "../../../components/FeedCard/FeedCard";
 import { collection, query, getDocs, where, onSnapshot } from "firebase/firestore";
 import { db } from "../../../config/config";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 // const data = [
 //   {
@@ -22,34 +23,51 @@ function FeedListing() {
   const { id } = useParams();
   const [CL_data, setCL_Data] = useState([]);
   //fetch listing data on initial load
-  useEffect(() => {
-    getListingData();
-  }, []);
-  const q = query(collection(db, "Posts"), where('requests', 'not-in', [[id]]));
+  // useEffect(() => {
+  //   getListingData();
+  // }, []);
 
-  const getListingData = async () => {
-    let dataobt = [];
-  onSnapshot(q, (querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        console.log(doc.id, " => ", doc.data());
-        dataobt.push({
-          id: doc.id,
-          data: doc.data(),
-        });
-      });
-    setCL_Data(dataobt);
-    });
-    // const querySnapshot = await getDocs(q);
-    // querySnapshot.forEach((doc) => {
-    //   // doc.data() is never undefined for query doc snapshots
-    //   console.log(doc.id, " => ", doc.data());
-    //   dataobt.push({
-    //     id: doc.id,
-    //     data: doc.data(),
-    //   });
-    // });
-    // setCL_Data(dataobt);
-  };
+  //fetch listing data on initial load from server
+  async function fetchData() {
+    try {
+      const response = await axios.get(`http://localhost:5000/post?excludedRequest=${id}`);
+      setCL_Data(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  },
+      [id]
+  );
+  
+  // const q = query(collection(db, "Posts"), where('requests', 'not-in', [[id]]));
+
+  // const getListingData = async () => {
+  //   let dataobt = [];
+  // onSnapshot(q, (querySnapshot) => {
+  //     querySnapshot.forEach((doc) => {
+  //       console.log(doc.id, " => ", doc.data());
+  //       dataobt.push({
+  //         id: doc.id,
+  //         data: doc.data(),
+  //       });
+  //     });
+  //   setCL_Data(dataobt);
+  //   });
+  //   // const querySnapshot = await getDocs(q);
+  //   // querySnapshot.forEach((doc) => {
+  //   //   // doc.data() is never undefined for query doc snapshots
+  //   //   console.log(doc.id, " => ", doc.data());
+  //   //   dataobt.push({
+  //   //     id: doc.id,
+  //   //     data: doc.data(),
+  //   //   });
+  //   // });
+  //   // setCL_Data(dataobt);
+  // };
   return (
     <div className="d-flex flex-column justify-content-center align-items-center">
       {console.log(CL_data)}
@@ -57,8 +75,8 @@ function FeedListing() {
         <FeedCard
           key={index}
           //profileIcon={cardData.profileIcon}
-          cardID={cardData.id}
-          info={cardData.data}
+          showReqBtn={true}
+          info={cardData}
         />
       ))}
     </div>
