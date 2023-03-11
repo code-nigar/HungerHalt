@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import NewPostModal from "./NewPostModal";
 import "./currentListing.css";
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "../../config/config";
 import axios from "axios";
 
 export default function CurrentListing() {
@@ -11,10 +9,53 @@ export default function CurrentListing() {
   const [openModal, setOpenModal] = useState(false);
   const [disable, setDisable] = useState(true);
   const [CL_data, setCL_Data] = useState([]);
+  const [showChild, setShowChild] = useState(false);
+
+  const showRequestyy = (x) => {
+    if (x.requests && x.requests.length) {
+      setShowChild(!showChild);
+    }
+  };
+
+  function showRequestyyDiv(x) {
+    let op = <></>;
+    const requestyList = [];
+
+    if (x.requests && x.requests.length > 0) {
+      for (let i = 0; i < x.requests.length; i++) {
+        requestyList.push(
+          <div className="requesty-card d-flex flex-row justify-content-between align-items-baseline">
+            <p key={i}>{x.requests[i]}</p>
+            <button className="btn btn-secondary">Approve</button>
+          </div>
+        );
+      }
+      console.log(x.requests);
+      op = (
+        <>
+          <p> Requested by</p>
+          <div className="d-flex flex-column justify-content-between align-items-baseline">
+            {requestyList}
+          </div>
+        </>
+      );
+      // op =
+      // <>
+      //   {x.requests.map((y, index)=>{
+      //     <div key={index}>
+      //       <p>{y}</p>
+      //     </div>
+      //   })}
+      // </>
+    }
+    return op;
+  }
 
   async function fetchData() {
     try {
-      const response = await axios.get(`http://localhost:5000/post?postedBy=${id}&bookedStatus=${false}`);
+      const response = await axios.get(
+        `http://localhost:5000/post?postedBy=${id}&bookedStatus=${false}`
+      );
       setCL_Data(response.data);
     } catch (error) {
       console.error(error);
@@ -30,36 +71,6 @@ export default function CurrentListing() {
   const onClose = () => {
     setOpenModal(!openModal);
   };
-
-  //const q = query(collection(db, "Posts"), where("postedBy", "==", id));
-
-  // var CL_data =[];
-
-  // const getListingData = async () => {
-  //   //  const q = query(collection(db, "Businesses"), where("postedBy", "==", {id}));
-  //   let dataobt = [];
-  //   const querySnapshot = await getDocs(q);
-  //   querySnapshot.forEach((doc) => {
-  //     // doc.data() is never undefined for query doc snapshots
-  //     console.log(doc.id, " => ", doc.data());
-  //     //setCL_Data(CL_data.push(doc.data()));
-  //     //dataobt.push(doc.data());
-  //     dataobt.push({
-  //       id: doc.id,
-  //       data: doc.data(),
-  //     });
-  //   });
-  //   setCL_Data(dataobt);
-  // };
-
-  // const clc_info = {
-  //   clc_id: "",
-  //   clc_name: "",
-  //   clc_qtt: 0,
-  //   clc_type: "",
-  //   clc_location: "",
-  //   clc_validity: null,
-  // };
 
   const editCardInfo = (e, post_id) => {
     e.preventDefault();
@@ -203,7 +214,10 @@ export default function CurrentListing() {
                   <p>Created at: 12/4/44</p>
                   <p>
                     Requests Recieved:{" "}
-                    <span className="request-count">
+                    <span
+                      className="request-count"
+                      onClick={() => showRequestyy(x)}
+                    >
                       {x.requests ? x.requests.length : "0"}
                     </span>
                   </p>
@@ -228,6 +242,11 @@ export default function CurrentListing() {
                   </button>
                 </div>
               </form>
+              {showChild && (
+                <div style={{ marginTop: "10px", backgroundColor: "gray" }}>
+                  {showRequestyyDiv(x)}
+                </div>
+              )}
             </div>
           ))}
         </>

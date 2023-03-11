@@ -41,3 +41,8 @@ input[disabled] {
 .disable-inp-opt{
     pointer-events: none;
 } */
+
+.requesty-card{
+    width: 90%;
+    margin: 0 auto;
+}

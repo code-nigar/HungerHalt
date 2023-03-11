@@ -24,6 +24,16 @@ code {
   border-color: #FDE82C;
   color: #fff;
 }
+.btn-secondary{
+  background-color: #fdf289;
+  color: #111;
+}
+.btn-secondary:hover{
+  background-color: #FDE82C;
+  color: #000;
+  line-height: 1.1;
+  font-size: 0.95rem;
+}
 .no-display{
   display: none;
 }
