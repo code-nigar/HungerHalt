@@ -27,6 +27,8 @@ code {
 .btn-secondary{
   background-color: #fdf289;
   color: #111;
+  line-height: 1.1;
+  font-size: 0.95rem;
 }
 .btn-secondary:hover{
   background-color: #FDE82C;

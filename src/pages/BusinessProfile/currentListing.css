@@ -30,6 +30,16 @@
     padding: 2px 10px;
     background-color: #333;
 }
+.request-count:hover{
+    background-color: #ceda2c;
+    color: #111;
+    cursor: pointer;
+}
+
+.creation-time{
+    font-size: small;
+    color: #777;
+}
 input[disabled] {
     color: #ddd;
  }

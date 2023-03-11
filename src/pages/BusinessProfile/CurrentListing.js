@@ -4,6 +4,12 @@ import NewPostModal from "./NewPostModal";
 import "./currentListing.css";
 import axios from "axios";
 
+const approveNGOreq = async (id, updatedFields) => {
+  const res = await axios.put(`http://localhost:5000/post/${id}`, updatedFields);
+  res.data && alert("request approved");
+  return res.data;
+};
+
 export default function CurrentListing() {
   const { id } = useParams();
   const [openModal, setOpenModal] = useState(false);
@@ -17,6 +23,14 @@ export default function CurrentListing() {
     }
   };
 
+  const approveBtn = (postID) => {
+    approveNGOreq(postID,{
+      BookedFor: id,
+      BookedStatus: true,
+    });
+    setShowChild(!showChild);
+  }
+
   function showRequestyyDiv(x) {
     let op = <></>;
     const requestyList = [];
@@ -26,7 +40,7 @@ export default function CurrentListing() {
         requestyList.push(
           <div className="requesty-card d-flex flex-row justify-content-between align-items-baseline">
             <p key={i}>{x.requests[i]}</p>
-            <button className="btn btn-secondary">Approve</button>
+            <button className="btn btn-secondary" onClick={()=>{approveBtn(x._id)}}>Approve</button>
           </div>
         );
       }
@@ -134,7 +148,7 @@ export default function CurrentListing() {
       return (
         <>
           {cld.map((x) => (
-            <div className="currentlisting-card mb-2" key={x.id}>
+            <div className="currentlisting-card mb-2" key={x._id}>
               <form className="clc-form">
                 <div className="clc-fields d-flex flex-column justify-content-start align-content-center">
                   <div className="clc-input-field mx-2 d-flex flex-row justify-content-start ">
@@ -210,8 +224,8 @@ export default function CurrentListing() {
                     </div>
                   </div>
                 </div>
-                <div className="d-flex flex-row justify-content-around align-items-baseline mt-2">
-                  <p>Created at: 12/4/44</p>
+                <div className="d-flex flex-row justify-content-around align-items-baseline mt-3">
+                  <p className="creation-time">Created at: {x.createdAt}</p>
                   <p>
                     Requests Recieved:{" "}
                     <span

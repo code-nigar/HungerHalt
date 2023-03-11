@@ -163,33 +163,14 @@ export default function BookedListing() {
                     </div>
                   </div>
                 </div>
-                <div className="d-flex flex-row justify-content-around align-items-baseline mt-2">
-                  <p>Created at: 12/4/44</p>
+                <div className="d-flex flex-row justify-content-around align-items-baseline mt-3">
                   <p>
-                    Requests Recieved:{" "}
+                    Booked For:
                     <span className="request-count">
-                      {x.requests ? x.requests.length : "0"}
+                      {x.BookedFor}
                     </span>
                   </p>
-                  <button
-                    className={
-                      disable ? "btn btn-outline-primary mt-4" : "no-display"
-                    }
-                    onClick={(e) => {
-                      editCardInfo(e, x._id);
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className={
-                      // !disable ? "btn btn-outline-primary mt-4" : "no-display"
-                      "btn btn-outline-primary mt-4 no-display"
-                    }
-                    onClick={SaveInfoChanges}
-                  >
-                    Save
-                  </button>
+                  <button className="btn btn-secondary">withdraw</button>
                 </div>
               </form>
             </div>
