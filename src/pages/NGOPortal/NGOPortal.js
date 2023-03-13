@@ -4,6 +4,7 @@ import NGOProfile from "./NGOProfile/NGOProfile";
 import FeedListing from "./NGOFeed/FeedListing";
 import RequestedListing from "./NGOFeed/RequestedListing";
 import AcceptedListing from "./NGOFeed/AcceptedListing";
+import DonatedListing from "./NGOFeed/DonatedListing";
 import Headerr from "../../components/Header/Header";
 import "./sideNavbar.css";
 import "./NGOPortal.css";
@@ -19,6 +20,8 @@ function NGOPortal() {
       return <AcceptedListing />;
     } else if (tabNo === 4) {
       return <NGOProfile NgoID={id} />;
+    } else if (tabNo === 5) {
+      return <DonatedListing />;
     } else {
       return <FeedListing />;
     }
@@ -40,7 +43,7 @@ function NGOPortal() {
                   width="16"
                   height="16"
                   fill="currentColor"
-                  class ="bi bi-lightning-charge-fill"
+                  class="bi bi-lightning-charge-fill"
                   viewBox="0 0 16 16"
                   className={toggleTab === 1 ? "active-tab" : "inactive-tab"}
                 >
@@ -100,6 +103,24 @@ function NGOPortal() {
                     fill-rule="evenodd"
                     d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
                   />
+                </svg>
+              </li>
+              <li
+                onClick={() => {
+                  setToggleTab(5);
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-box2-heart"
+                  viewBox="0 0 16 16"
+                  className={toggleTab === 5 ? "active-tab" : "inactive-tab"}
+                >
+                  <path d="M8 7.982C9.664 6.309 13.825 9.236 8 13 2.175 9.236 6.336 6.31 8 7.982Z" />
+                  <path d="M3.75 0a1 1 0 0 0-.8.4L.1 4.2a.5.5 0 0 0-.1.3V15a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V4.5a.5.5 0 0 0-.1-.3L13.05.4a1 1 0 0 0-.8-.4h-8.5Zm0 1H7.5v3h-6l2.25-3ZM8.5 4V1h3.75l2.25 3h-6ZM15 5v10H1V5h14Z" />
                 </svg>
               </li>
             </ul>

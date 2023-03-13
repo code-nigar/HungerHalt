@@ -8,6 +8,8 @@ import { v4 } from "uuid";
 import { db, app, storage } from "../../config/config.js";
 import { useNavigate } from "react-router-dom";
 import { userContext } from "../../App";
+import Swal from "sweetalert2";
+import { motion } from "framer-motion";
 
 function SignupNGO() {
   const { state, dispatch } = useContext(userContext);
@@ -17,7 +19,9 @@ function SignupNGO() {
   const [NGOpass, setNGOpass] = useState("");
   const [address, setAddress] = useState("");
   const [profilePic, setProfilePic] = useState(null);
-  const [profileUrl, setProfileUrl] = useState("");
+  const [profileUrl, setProfileUrl] = useState(
+    "https://thumbs.dreamstime.com/b/ngo-letter-technology-logo-design-white-background-creative-initials-concept-253007787.jpg"
+  );
 
   const navigate = useNavigate();
 
@@ -82,15 +86,35 @@ function SignupNGO() {
     <div className="signup-page">
       <Headerr />
       <div className="form-container">
-        <p className="sign-up-text d-flex justify-content-center align-items-center">
+        <motion.p
+          initial={{ x: -100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          exit={{ y: -10, opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="sign-up-text d-flex justify-content-center align-items-center"
+        >
           We are the saviours!
-        </p>
+        </motion.p>
         <form className="signup-form p-4 d-flex flex-column align-items-center">
           <div className="form-heading mb-4">
-            <h3>SignUp As an NGO</h3>
+            <motion.h3
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -10, opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              className="logo-gradient fs-1 fw-bolder"
+            >
+              SignUp As an NGO
+            </motion.h3>
           </div>
           <div className="fields d-flex flex-column justify-content-center px-4">
-            <div className="input-field d-flex flex-row justify-content-between mt-3">
+            <motion.div
+              initial={{ y: 80, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -10, opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              className="input-field d-flex flex-row justify-content-between mt-3"
+            >
               <label htmlFor="ngo-name">NGO Name:</label>
               <input
                 type="text"
@@ -99,8 +123,14 @@ function SignupNGO() {
                 value={NGOname}
                 onChange={(e) => setNGOname(e.target.value)}
               />
-            </div>
-            <div className="input-field d-flex flex-row justify-content-between mt-3">
+            </motion.div>
+            <motion.div
+              initial={{ y: 60, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -10, opacity: 0 }}
+              transition={{ duration: 0.6 }}
+              className="input-field d-flex flex-row justify-content-between mt-3"
+            >
               <label htmlFor="business-address">Address:</label>
               <input
                 type="text"
@@ -109,8 +139,14 @@ function SignupNGO() {
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
               />
-            </div>
-            <div className="input-field d-flex flex-row justify-content-between mt-3">
+            </motion.div>
+            <motion.div
+              initial={{ y: 40, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -10, opacity: 0 }}
+              transition={{ duration: 0.7 }}
+              className="input-field d-flex flex-row justify-content-between mt-3"
+            >
               <label htmlFor="business-logo">Add Profile Logo:</label>
               <input
                 type="file"
@@ -118,8 +154,14 @@ function SignupNGO() {
                 name="business-logo"
                 onChange={(e) => setProfilePic(e.target.files[0])}
               />
-            </div>
-            <div className="input-field d-flex flex-row justify-content-between mt-3">
+            </motion.div>
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -10, opacity: 0 }}
+              transition={{ duration: 0.8 }}
+              className="input-field d-flex flex-row justify-content-between mt-3"
+            >
               <label htmlFor="email">Email:</label>
               <input
                 type="email"
@@ -128,8 +170,14 @@ function SignupNGO() {
                 value={NGOemail}
                 onChange={(e) => setNGOemail(e.target.value)}
               />
-            </div>
-            <div className="input-field d-flex flex-row justify-content-between mt-3">
+            </motion.div>
+            <motion.div
+              initial={{ y: 10, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -10, opacity: 0 }}
+              transition={{ duration: 0.9 }}
+              className="input-field d-flex flex-row justify-content-between mt-3"
+            >
               <label htmlFor="NGOpass">Password: </label>
               <input
                 type="password"
@@ -138,7 +186,7 @@ function SignupNGO() {
                 value={NGOpass}
                 onChange={(e) => setNGOpass(e.target.value)}
               />
-            </div>
+            </motion.div>
           </div>
           <button
             type="submit"

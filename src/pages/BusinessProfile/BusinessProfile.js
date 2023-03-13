@@ -58,7 +58,7 @@ export default function BusinessProfile() {
         <div className="left-container">
           <div className="profile">
             <img
-              src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8YmFrZXJ5fGVufDB8fDB8fA%3D%3D&w=1000&q=80"
+              src={infoData ? infoData.profilePicUrl : "https://www.logodesign.net/logo/smoking-burger-with-lettuce-3624ld.png"}
               alt="profile"
             />
             <div className="profile-info mt-4">

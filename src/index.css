@@ -1,41 +1,61 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
-.btn-primary{
-  background-color: #FD2C63;
+.btn-primary {
+  background-color: #fd2c63;
   color: #fff;
 }
-.btn-primary:hover , .btn-outline-primary:hover{
-  background-color: #FDE82C;
+.btn-primary:hover,
+.btn-outline-primary:hover {
+  background-color: #fde82c;
   color: #111;
 }
-.btn-outline-primary{
-  border-color: #FDE82C;
+.btn-outline-primary {
+  border-color: #fde82c;
   color: #fff;
 }
-.btn-secondary{
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+.btn-secondary {
   background-color: #fdf289;
   color: #111;
   line-height: 1.1;
   font-size: 0.95rem;
 }
-.btn-secondary:hover{
-  background-color: #FDE82C;
+.btn-secondary:hover {
+  background-color: #fde82c;
   color: #000;
   line-height: 1.1;
   font-size: 0.95rem;
 }
-.no-display{
+.no-display {
   display: none;
+}
+.logo-gradient {
+  background: -webkit-linear-gradient(0deg, #fde82c, #fd2c63);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+a {
+  text-decoration: none;
+  color: #00c9b7;
+}
+a:hover {
+  text-decoration: none;
+  color: #fde82c;
 }

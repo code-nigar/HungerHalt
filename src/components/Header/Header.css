@@ -1,16 +1,23 @@
+/*00c9b7*/
+
 .header{
     height: 58px;
 }
 .logo{
-    background: -webkit-linear-gradient(#FDE82C, #FD2C63);
+    background: -webkit-linear-gradient(0deg ,#FDE82C, #FD2C63);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    line-height: 1.5em;
+    font-size: 24px;
+    font-weight: 800;
+    height: 40px;
+    margin: auto;
 }
 .logo-img{
     object-fit: contain;
     width: 40px;
-    height: inherit;
+    height: 35px;
     margin-right: 10px;
 }
 ul{

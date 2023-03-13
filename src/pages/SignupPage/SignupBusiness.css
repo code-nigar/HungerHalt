@@ -1,26 +1,36 @@
-.signup-page{
-    height: 100vh;
+.signup-page {
+  height: 100vh;
 }
 
 .form-container {
-    display: flex;
-    height: calc(100vh - 58px);
+  display: flex;
+  height: calc(100vh - 58px);
 }
-.sign-up-text{
-    padding: 0 40px;
-    font-size: 4em;
-    width: 45vw;
+.sign-up-text {
+  padding: 0 40px;
+  font-size: 4em;
+  width: 45vw;
 }
 .signup-form {
-    background-color: #000;
-    width: 70%;
+  background-color: #000;
+  width: 70%;
 }
 
-.form-heading,
 .input-field label {
-    color: white;
+  color: #fff388;
+}
+.input-field > input {
+  background-color: #333;
+  border: none;
+  padding: 20px;
+  color: #fde82c;
+  border-radius: 8px;
+}
+input[type="file"] {
+  background-color: transparent;
+  max-width: 200px;
 }
 
 .fields {
-    width: 70%;
+  width: 70%;
 }

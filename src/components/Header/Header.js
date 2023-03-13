@@ -80,7 +80,7 @@ function Headerr() {
             alt="hungerhalt logo"
             className="logo-img"
           />
-          <p className="logo fw-800 fs-3">HungerHalt</p>
+          <p className="logo">HungerHalt</p>
         </div>
         <div>
           <ul>

@@ -32,6 +32,7 @@ function RequestedListing() {
           key={index}
           //profileIcon={cardData.profileIcon}
           showReqBtn={false}
+          ShowBtns={true}
           info={cardData}
         />
       ))}

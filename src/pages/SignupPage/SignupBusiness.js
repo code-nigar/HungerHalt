@@ -9,7 +9,8 @@ import { db, app, storage } from "../../config/config.js";
 import { useNavigate } from "react-router-dom";
 import { userContext } from "../../App";
 import axios from "axios";
-// import { createContext } from "react";
+import Swal from "sweetalert2";
+import { motion } from "framer-motion";
 
 function SignupBusiness() {
   const { state, dispatch } = useContext(userContext);
@@ -19,13 +20,15 @@ function SignupBusiness() {
   const [Bpass, setBpass] = useState("");
   const [address, setAddress] = useState("");
   const [profilePic, setProfilePic] = useState(null);
-  const [profileUrl, setProfileUrl] = useState("try");
+  const [profileUrl, setProfileUrl] = useState(
+    "https://www.logodesign.net/logo/smoking-burger-with-lettuce-3624ld.png"
+  );
   const [B_Id, setB_Id] = useState("");
-  var xt = {iurl: ""};
+  var xt = { iurl: "" };
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log("img url changed >> ", profileUrl);
-  },[profileUrl])
+  }, [profileUrl]);
 
   const signupAPI = () => {
     const url = "http://localhost:5000/biz";
@@ -44,10 +47,10 @@ function SignupBusiness() {
     })
       .then((res) => res)
       .then((data) => {
-        console.log(data)
+        console.log(data);
         // setB_Id(JSON.stringify(data.data._id))
         // console.log(B_Id);
-        return JSON.stringify(data.data._id)
+        return JSON.stringify(data.data._id);
       })
       .catch((err) => console.log(err));
   };
@@ -65,8 +68,7 @@ function SignupBusiness() {
           console.log("user registered as", user);
           //save business profile image
           const imageRef = ref(storage, `images/${profilePic.name + v4()}`);
-          uploadBytes(imageRef, profilePic)
-          .then(async (res) => {
+          uploadBytes(imageRef, profilePic).then(async (res) => {
             console.log("upload successful,", res);
             // getDownloadURL(ref(storage, res.metadata.fullPath))
             //   .then((iurl)=> {
@@ -77,13 +79,13 @@ function SignupBusiness() {
             //     console.log(err);
             //   });
             xt.iurl = await getDownloadURL(ref(storage, res.metadata.fullPath));
-            console.log(xt)
+            console.log(xt);
             setProfileUrl(xt.iurl);
             //signupAPI()
-            setB_Id(signupAPI())
+            setB_Id(signupAPI());
             console.log(B_Id);
-          })
-          
+          });
+
           try {
             setDoc(doc(db, "Businesses", user.uid), {
               userID: B_Id,
@@ -94,7 +96,7 @@ function SignupBusiness() {
               profilePicUrl: profileUrl,
               contributionCount: 0,
               about: "",
-              blogs: []
+              blogs: [],
             });
             alert("added successfully");
           } catch (e) {
@@ -122,15 +124,35 @@ function SignupBusiness() {
     <div className="signup-page">
       <Headerr />
       <div className="form-container">
-        <p className="sign-up-text d-flex justify-content-center align-items-center">
-          DONT LET YOUR LEFT OVER FOOD GOTO WASTE
-        </p>
-        <form className="signup-form p-4 d-flex flex-column align-items-center">
+        <motion.p
+          initial={{ x: -100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          exit={{ y: -10, opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="sign-up-text d-flex justify-content-center align-items-center"
+        >
+          With your Support, we make change happen
+        </motion.p>
+        <form className="signup-form p-4 d-flex flex-column align-items-center justify-content-center">
           <div className="form-heading mb-4">
-            <h3>SignUp As a Business</h3>
+            <motion.h3
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -10, opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              className="logo-gradient fs-1 fw-bolder"
+            >
+              SignUp As a Business
+            </motion.h3>
           </div>
           <div className="fields d-flex flex-column justify-content-center px-4">
-            <div className="input-field d-flex flex-row justify-content-between mt-3">
+            <motion.div
+              initial={{ y: 80, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -10, opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              className="input-field d-flex flex-row justify-content-between mt-3"
+            >
               <label htmlFor="name">Business Name:</label>
               <input
                 type="text"
@@ -139,8 +161,14 @@ function SignupBusiness() {
                 value={Bname}
                 onChange={(e) => setBname(e.target.value)}
               />
-            </div>
-            <div className="input-field d-flex flex-row justify-content-between mt-3">
+            </motion.div>
+            <motion.div
+              initial={{ y: 60, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -10, opacity: 0 }}
+              transition={{ duration: 0.6 }}
+              className="input-field d-flex flex-row justify-content-between mt-3"
+            >
               <label htmlFor="address">Address:</label>
               <input
                 type="text"
@@ -149,8 +177,14 @@ function SignupBusiness() {
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
               />
-            </div>
-            <div className="input-field d-flex flex-row justify-content-between mt-3">
+            </motion.div>
+            <motion.div
+              initial={{ y: 40, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -10, opacity: 0 }}
+              transition={{ duration: 0.7 }}
+              className="input-field d-flex flex-row justify-content-between mt-3"
+            >
               <label htmlFor="logo">Add Profile Logo:</label>
               <input
                 type="file"
@@ -158,8 +192,14 @@ function SignupBusiness() {
                 name="logo"
                 onChange={(e) => setProfilePic(e.target.files[0])}
               />
-            </div>
-            <div className="input-field d-flex flex-row justify-content-between mt-3">
+            </motion.div>
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -10, opacity: 0 }}
+              transition={{ duration: 0.8 }}
+              className="input-field d-flex flex-row justify-content-between mt-3"
+            >
               <label htmlFor="email">Email:</label>
               <input
                 type="email"
@@ -168,8 +208,14 @@ function SignupBusiness() {
                 value={Bemail}
                 onChange={(e) => setBemail(e.target.value)}
               />
-            </div>
-            <div className="input-field d-flex flex-row justify-content-between mt-3">
+            </motion.div>
+            <motion.div
+              initial={{ y: 10, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -10, opacity: 0 }}
+              transition={{ duration: 0.9 }}
+              className="input-field d-flex flex-row justify-content-between mt-3"
+            >
               <label htmlFor="pass">Password: </label>
               <input
                 type="password"
@@ -178,7 +224,7 @@ function SignupBusiness() {
                 value={Bpass}
                 onChange={(e) => setBpass(e.target.value)}
               />
-            </div>
+            </motion.div>
           </div>
           <button
             type="submit"

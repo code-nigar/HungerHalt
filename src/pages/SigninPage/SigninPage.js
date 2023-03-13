@@ -5,6 +5,8 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "../../config/config.js";
 import { useNavigate } from "react-router-dom";
 import { userContext } from "../../App";
+import Swal from "sweetalert2";
+import { motion } from "framer-motion";
 
 function SigninPage() {
   const { state, dispatch } = useContext(userContext);
@@ -38,16 +40,22 @@ function SigninPage() {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        alert(errorCode, errorMessage);
+        console.log(errorCode, errorMessage);
+        Swal.fire({
+          title: "Error!",
+          text: "Can not sign in",
+          icon: "error",
+          confirmButtonText: "ok",
+        });
         // ..
       });
   };
 
-  const toggleForm =(e)=>{
+  const toggleForm = (e) => {
     e.preventDefault();
     setNGOSignin(!NGOSignin);
-  }
-  
+  };
+
   return (
     <div className="signin-page">
       <Headerr />
@@ -55,11 +63,31 @@ function SigninPage() {
         <p className="sign-in-text d-flex justify-content-center align-items-center">
           LET'S DO THIS !!
         </p>
-        <form className="signin-form p-4 d-flex flex-column align-items-center">
-          <div className="form-heading mb-4">
-            {NGOSignin ? <h3>Sign In As an NGO</h3> : <h3>Sign In As a Business</h3>}
-          </div>
-          <div className="fields d-flex flex-column justify-content-center px-4">
+        <form className="signin-form p-4 d-flex flex-column align-items-center justify-content-center">
+          <motion.div
+            initial={{ y: 10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -10, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="form-heading mb-4"
+          >
+            {NGOSignin ? (
+              <h3 className="mb-4 fs-1 fw-bolder logo-gradient">
+                Sign In As an NGO
+              </h3>
+            ) : (
+              <h3 className="mb-4 fs-1 fw-bolder logo-gradient">
+                Sign In As a Business
+              </h3>
+            )}
+          </motion.div>
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -10, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fields d-flex flex-column justify-content-center px-4"
+          >
             <div className="input-field d-flex flex-row justify-content-between mt-3">
               <label htmlFor="email">Email:</label>
               <input
@@ -80,7 +108,7 @@ function SigninPage() {
                 onChange={(e) => setBpass(e.target.value)}
               />
             </div>
-          </div>
+          </motion.div>
           <button
             type="submit"
             className="btn btn-primary m-4"
@@ -89,7 +117,12 @@ function SigninPage() {
             Sign In
           </button>
 
-          <button onClick={(e)=> toggleForm(e)}>Sign in As {NGOSignin ? `a Business` : ` an NGO`}</button>
+          <button
+            onClick={(e) => toggleForm(e)}
+            className="btn btn-outline-primary mt-4"
+          >
+            Sign in As {NGOSignin ? `a Business` : ` an NGO`}
+          </button>
         </form>
       </div>
     </div>

@@ -2,18 +2,15 @@ import React, { useState, useEffect } from "react";
 import Countdown from "../CountDown/Countdown";
 import { useParams } from "react-router-dom";
 import "./Card.css";
-import {
-  getDoc,
-  doc,
-  updateDoc,
-  arrayUnion
-} from "firebase/firestore";
+import { getDoc, doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { db } from "../../config/config";
-import axios from "axios"
+import axios from "axios";
 
 const updatePost = async (postId, request) => {
   try {
-    const res = await axios.put(`http://localhost:5000/post/${postId}`, { request });
+    const res = await axios.put(`http://localhost:5000/post/${postId}`, {
+      request,
+    });
     return res.data;
   } catch (err) {
     console.error(err);
@@ -22,7 +19,6 @@ const updatePost = async (postId, request) => {
 };
 
 function FeedCard(props) {
-  
   //const { profileIcon, userName, info } = props;
   const { id } = useParams();
   //const postyID = props.info.postedBy;
@@ -30,6 +26,7 @@ function FeedCard(props) {
   //const cardID = props.cardID;
   const cardID = props.info._id;
   const showReqBtn = props.showReqBtn;
+  const showBtns = props.ShowBtns;
   //const [infoData, setInfoData] = useState(null);
   const [postyName, setPostyName] = useState("Anonymous");
   const [postyLogo, setPostyLogo] = useState("");
@@ -62,7 +59,7 @@ function FeedCard(props) {
     // });
     try {
       const updatedPost = await updatePost(cid, id);
-      console.log("request added >> ",updatedPost);
+      console.log("request added >> ", updatedPost);
     } catch (err) {
       console.error(err);
     }
@@ -96,31 +93,37 @@ function FeedCard(props) {
             <p className="lead mx-2">Pickup Location: </p>
             <p className="lead mx-2">{props.info.FoodPickup}</p>
           </div>
-          <div className="mx-2 card-item-validity d-flex flex-row justify-content-start flex-wrap align-items-baseline">
-            <p className="lead mx-2">Remaining Time: </p>
-            <Countdown seconds={Math.floor(new Date(props.info.FoodValidity).getTime() / 1000)} />
-          </div>
+          {showBtns && (
+            <div className="mx-2 card-item-validity d-flex flex-row justify-content-start flex-wrap align-items-baseline">
+              <p className="lead mx-2">Remaining Time: </p>
+              <Countdown
+                seconds={Math.floor(
+                  new Date(props.info.FoodValidity).getTime() / 1000
+                )}
+              />
+            </div>
+          )}
         </div>
-        {
-          showReqBtn &&
-        <button
-          className="btn btn-primary my-3 mx-2"
-          onClick={(e) => {
-            requestBiz(e, cardID);
-          }}
-        >
-          Request
-        </button>
-        }
-        {
-          !showReqBtn &&
-        <button
-          className="btn btn-primary my-3 mx-2"
-          
-        >
-          Remove Request
-        </button>
-        }
+        {showBtns && showReqBtn && (
+          <button
+            className="btn btn-primary my-3 mx-2"
+            onClick={(e) => {
+              requestBiz(e, cardID);
+            }}
+          >
+            Request
+          </button>
+        )}
+        {showBtns && !showReqBtn && (
+          <div className="d-flex flex-row justify-content-around align-items-center">
+            <button className="btn btn-secondary my-3 mx-2">
+              Remove Request
+            </button>
+            <button className="btn btn-primary my-3 mx-2">
+              Mark As Complete
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

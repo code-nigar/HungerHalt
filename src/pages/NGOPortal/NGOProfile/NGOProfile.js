@@ -28,6 +28,7 @@ function NGOProfile(props) {
       setInfoData(docSnap.data());
       setNgoName(docSnap.data().name);
       setNgoAbout(docSnap.data().about);
+      setNgoLogo(docSnap.data().profilePicUrl)
     } else {
       // doc.data() will be undefined in this case
       console.log("No such document!");

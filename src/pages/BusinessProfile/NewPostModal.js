@@ -4,6 +4,7 @@ import { db } from "../../config/config";
 import { collection, addDoc } from "firebase/firestore";
 import "./NewPostModal.css";
 import axios from "axios";
+import Swal from 'sweetalert2'
 
 export default function NewPostModal(props) {
   const [FoodName, setFoodName] = useState("");
@@ -47,7 +48,12 @@ export default function NewPostModal(props) {
         console.log(data);
         cleanInputFields();
         props.onClose();
-        alert("post added successfully");
+        //alert("post added successfully");
+        Swal.fire({
+          icon: 'success',
+          title: 'Post Added',
+          text: 'post added successfully!',
+        })
       })
       .catch((err) => console.log(err));
   };

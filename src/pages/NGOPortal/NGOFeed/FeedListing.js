@@ -76,6 +76,7 @@ function FeedListing() {
           key={index}
           //profileIcon={cardData.profileIcon}
           showReqBtn={true}
+          ShowBtns={true}
           info={cardData}
         />
       ))}
