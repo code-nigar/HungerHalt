@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 function HDIWSection() {
   return (
     <div className="HDIW-sec d-flex flex-column justify-content-center align-items-center">
-      <div className="HDIW-pre d-flex flex-row justify-content-between align-items-center">
+      <div className="HDIW-pre">
         <motion.p initial={{color: '#fff', opacity:0, x:-10}} whileInView={{ opacity: 1 , x:0}} transition={{ duration: 0.55 }}  className="HDIW-text">
           We provide a platform for businesses & non-profits to place and pick
           up unserved food

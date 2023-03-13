@@ -2,6 +2,7 @@
     background-color: #000;
     color: #fff;
     padding: 50px;
+    width: 100vw;
 }
 .mission-heading{
     margin-bottom: 40px;
@@ -9,8 +10,12 @@
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    width: 80vw;
 }
 .mission-text{
     max-width: 800px;
     text-align: center;
+    letter-spacing: 0.025em;
+    word-spacing: 0.25em;
+    width: 70vw;
 }

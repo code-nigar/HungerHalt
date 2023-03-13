@@ -1,36 +1,119 @@
 .signup-page {
   height: 100vh;
 }
-
 .form-container {
   display: flex;
+  flex-direction: row;
   height: calc(100vh - 58px);
-}
-.sign-up-text {
-  padding: 0 40px;
-  font-size: 4em;
-  width: 45vw;
 }
 .signup-form {
   background-color: #000;
   width: 70%;
 }
-
-.input-field label {
-  color: #fff388;
+.sign-up-text {
+  padding: 0 40px;
+  padding-bottom: 50px;
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 40px;
+  width: 48vw;
+  background-image: linear-gradient(
+      to right,
+      rgba(73, 63, 5, 0.2),
+      rgb(0, 0, 0)
+    ),
+    url("https://foodtank.com/wp-content/uploads/2022/12/Food-Donation-Improvement-Act-hunger-food-policy-food-waste-Congress.jpg");
+  background-size: cover;
+  background-position: center top;
+  color: white;
+  text-shadow: 6px 6px 4px #111;
 }
-.input-field > input {
+.input-field-signup {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+}
+.input-field-signup label {
+  color: #fff388;
+  width: 180px;
+  text-align: left;
+}
+.input-field-signup > input {
   background-color: #333;
   border: none;
-  padding: 20px;
+  padding: 10px;
   color: #fde82c;
   border-radius: 8px;
+  width: 320px;
+  line-height: 16px;
 }
 input[type="file"] {
   background-color: transparent;
-  max-width: 200px;
+  max-width: 30vw;
 }
-
 .fields {
   width: 70%;
+}
+
+@media (max-width: 850px) {
+  .form-container {
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
+    height: auto;
+    justify-content: flex-start;
+    width: 100vw;
+  }
+  .sign-up-text {
+    width: 100%;
+    min-height: 300px;
+    padding: 0;
+    background-image: linear-gradient(
+        to top,
+        rgba(73, 63, 5, 0.2),
+        rgb(0, 0, 0)
+      ),
+      url("https://foodtank.com/wp-content/uploads/2022/12/Food-Donation-Improvement-Act-hunger-food-policy-food-waste-Congress.jpg");
+  }
+  .signup-form {
+    width: 100%;
+    min-height: 700px;
+    max-height: auto;
+  }
+  .fields {
+    width: 600px;
+  }
+}
+@media (max-width: 650px) {
+  .fields {
+    width: 550px;
+  }
+  .input-field-signup label {
+    width: 100px;
+  }
+  .input-field-signup input {
+    width: 320px;
+  }
+}
+@media (max-width: 590px) {
+  .input-field-signup {
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+  }
+  .fields {
+    width: 90vw;
+  }
+  .input-field-signup label {
+    width: 85vw;
+  }
+  .input-field-signup input {
+    width: 85vw;
+  }
+  .sign-up-text {
+    margin-bottom: 0;
+  }
 }

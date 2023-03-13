@@ -151,7 +151,7 @@ function SignupBusiness() {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -10, opacity: 0 }}
               transition={{ duration: 0.5 }}
-              className="input-field d-flex flex-row justify-content-between mt-3"
+              className="input-field-signup mt-3"
             >
               <label htmlFor="name">Business Name:</label>
               <input
@@ -167,7 +167,7 @@ function SignupBusiness() {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -10, opacity: 0 }}
               transition={{ duration: 0.6 }}
-              className="input-field d-flex flex-row justify-content-between mt-3"
+              className="input-field-signup mt-3"
             >
               <label htmlFor="address">Address:</label>
               <input
@@ -183,7 +183,7 @@ function SignupBusiness() {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -10, opacity: 0 }}
               transition={{ duration: 0.7 }}
-              className="input-field d-flex flex-row justify-content-between mt-3"
+              className="input-field-signup mt-3"
             >
               <label htmlFor="logo">Add Profile Logo:</label>
               <input
@@ -198,7 +198,7 @@ function SignupBusiness() {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -10, opacity: 0 }}
               transition={{ duration: 0.8 }}
-              className="input-field d-flex flex-row justify-content-between mt-3"
+              className="input-field-signup mt-3"
             >
               <label htmlFor="email">Email:</label>
               <input
@@ -214,7 +214,7 @@ function SignupBusiness() {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -10, opacity: 0 }}
               transition={{ duration: 0.9 }}
-              className="input-field d-flex flex-row justify-content-between mt-3"
+              className="input-field-signup mt-3"
             >
               <label htmlFor="pass">Password: </label>
               <input

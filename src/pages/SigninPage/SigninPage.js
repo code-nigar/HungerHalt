@@ -61,7 +61,7 @@ function SigninPage() {
       <Headerr />
       <div className="form-container">
         <p className="sign-in-text d-flex justify-content-center align-items-center">
-          LET'S DO THIS !!
+          Let's halt the hunger !!
         </p>
         <form className="signin-form p-4 d-flex flex-column align-items-center justify-content-center">
           <motion.div
@@ -88,7 +88,7 @@ function SigninPage() {
             transition={{ duration: 0.3 }}
             className="fields d-flex flex-column justify-content-center px-4"
           >
-            <div className="input-field d-flex flex-row justify-content-between mt-3">
+            <div className="input-field mt-3">
               <label htmlFor="email">Email:</label>
               <input
                 type="email"
@@ -98,7 +98,7 @@ function SigninPage() {
                 onChange={(e) => setBemail(e.target.value)}
               />
             </div>
-            <div className="input-field d-flex flex-row justify-content-between mt-3">
+            <div className="input-field mt-3">
               <label htmlFor="Bpass">Password: </label>
               <input
                 type="password"

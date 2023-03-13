@@ -1,8 +1,9 @@
 import React from "react";
+import './footer.css'
 
 const Footer = () => {
   return (
-    <footer style={{ backgroundColor: "#1d1d1d", color: "#fff" }}>
+    <footer className="footer-bg">
       <div className="container py-5">
         <div className="row">
           <div className="col-lg-4 mb-4">
@@ -25,7 +26,7 @@ const Footer = () => {
               Kalyana Street
             </p>
             <p>Phone: (123) 456-7890</p>
-            <ul className="list-unstyled d-flex flex-row justify-content-center align-items-center ">
+            <ul className="footer-nav-items">
               <li>
                 <a href="#facebook">
                   <svg

@@ -1,38 +1,87 @@
 /*00c9b7*/
 
-.header{
-    height: 58px;
+.header {
+  height: 58px;
+  width: 100vw;
 }
-.logo{
-    background: -webkit-linear-gradient(0deg ,#FDE82C, #FD2C63);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    line-height: 1.5em;
-    font-size: 24px;
-    font-weight: 800;
-    height: 40px;
-    margin: auto;
+.logo {
+  background: -webkit-linear-gradient(0deg, #fde82c, #fd2c63);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.5em;
+  font-size: 24px;
+  font-weight: 800;
+  height: 40px;
+  margin: auto;
 }
-.logo-img{
-    object-fit: contain;
-    width: 40px;
-    height: 35px;
-    margin-right: 10px;
+.logo-img {
+  object-fit: contain;
+  width: 40px;
+  height: 35px;
+  margin-right: 10px;
 }
-ul{
-    margin: 0;
+ul {
+  margin: 0;
 }
-li{
-    list-style: none;
-    display: inline-block;
-    margin: 0 10px;
+li {
+  list-style: none;
+  display: inline-block;
+  margin: 0 10px;
+  color: #fff;
+}
+li > a {
+  text-decoration: none;
+  color: inherit;
+}
+li > a:hover {
+  color: #fde82c;
+}
+.checkbtn {
+  font-size: 30px;
+  float: right;
+  line-height: 80px;
+  margin-right: 40px;
+  cursor: pointer;
+  display: none;
+}
+#check {
+  display: none;
+}
+
+@media (max-width: 650px) {
+  .checkbtn {
+    display: block;
     color: #fff;
-}
-li>a{
-    text-decoration: none;
-    color: inherit;
-}
-li>a:hover{
-    color: #FDE82C;
+  }
+  ul li {
+    display: block;
+    width: inherit;
+  }
+  ul {
+    background-color: var(--light);
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 58px;
+    left: 0;
+    text-align: center;
+    transition: all 0.5s;
+    background-color: rgba(0, 0, 0, 0.904);
+    margin: 0;
+    display: none;
+  }
+  #check:checked ~ ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  #check:checked ~ ul li {
+    border-bottom: #999 1px solid;
+    width: 80vw;
+    padding: 20px 0;
+  }
 }

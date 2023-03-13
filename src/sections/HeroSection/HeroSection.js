@@ -13,7 +13,7 @@ function HeroSection() {
           initial={{ color: "#fff", opacity: 0, x: -100 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.65 }}
-          className="cta-container d-flex flex-end justify-content-center align-content-center flex-column p-3 m-4"
+          className="cta-container d-flex flex-end justify-content-center align-content-center align-items-center flex-column p-3 m-4"
         >
           <p className="cta-header">Let's Begin Saving Food</p>
           <NavLink

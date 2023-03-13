@@ -17,14 +17,13 @@ function Headerr() {
     signOut(auth)
       .then(() => {
         // Sign-out successful.
-        console.log("Sign-out successful")
+        console.log("Sign-out successful");
       })
       .catch((error) => {
         // An error happened.
-        console.log("sign-out error >> ",error);
+        console.log("sign-out error >> ", error);
       });
   };
-  
 
   const RenderListItems = () => {
     if (state) {
@@ -83,6 +82,22 @@ function Headerr() {
           <p className="logo">HungerHalt</p>
         </div>
         <div>
+          <input type="checkbox" id="check" />
+          <label for="check" class="checkbtn">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-list"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+              />
+            </svg>
+          </label>
           <ul>
             {/* <li><a href="#">Home</a></li>
           <li><a href="#">Blogs</a></li>
