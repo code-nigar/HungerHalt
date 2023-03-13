@@ -88,7 +88,7 @@ function SigninPage() {
             transition={{ duration: 0.3 }}
             className="fields d-flex flex-column justify-content-center px-4"
           >
-            <div className="input-field mt-3">
+            <div className="input-field-signin mt-3">
               <label htmlFor="email">Email:</label>
               <input
                 type="email"
@@ -98,7 +98,7 @@ function SigninPage() {
                 onChange={(e) => setBemail(e.target.value)}
               />
             </div>
-            <div className="input-field mt-3">
+            <div className="input-field-signin mt-3">
               <label htmlFor="Bpass">Password: </label>
               <input
                 type="password"

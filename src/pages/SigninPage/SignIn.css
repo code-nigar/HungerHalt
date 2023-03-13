@@ -30,7 +30,7 @@
   background-color: #000;
   width: 70%;
 }
-.input-field{
+.input-field-signin{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -39,18 +39,18 @@
   gap: 10px;
 }
 
-.input-field label {
+.input-field-signin label {
   color: #fff388;
-  width: 20vw;
+  width: 180px;
   text-align: left;
 }
-.input-field > input {
+.input-field-signin > input {
   background-color: #333;
   border: none;
-  padding: 20px;
+  padding: 10px;
   color: #fde82c;
   border-radius: 8px;
-  width: 25vw;
+  width: 320px;
   line-height: 16px;
 }
 input[type="file"] {
@@ -96,15 +96,15 @@ input[type="file"] {
   .fields {
     width: 550px;
   }
-  .input-field label {
+  .input-field-signin label {
     width: 100px;
   }
-  .input-field input {
+  .input-field-signin input {
     width: 320px;
   }
 }
 @media (max-width: 590px) {
-  .input-field {
+  .input-field-signin {
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
@@ -112,10 +112,10 @@ input[type="file"] {
   .fields {
     width: 90vw;
   }
-  .input-field label {
+  .input-field-signin label {
     width: 85vw;
   }
-  .input-field input {
+  .input-field-signin input {
     width: 85vw;
   }
   .sign-in-text {

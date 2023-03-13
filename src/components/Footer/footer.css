@@ -6,6 +6,7 @@
     background-position: center;
     color: white;
     padding: 20px;
+    width: 100vw;
 }
 @media (max-width:650px){
     .footer-nav-items{

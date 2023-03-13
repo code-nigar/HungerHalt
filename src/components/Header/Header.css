@@ -77,7 +77,6 @@ li > a:hover {
     justify-content: start;
     align-items: center;
     gap: 10px;
-    margin-top: 10px;
   }
   #check:checked ~ ul li {
     border-bottom: #999 1px solid;
