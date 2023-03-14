@@ -100,14 +100,14 @@ function FeedCard(props) {
           </h3>
           <p className="card-item-detail mx-4">{props.info.FoodType}</p>
         </div>
-        <div className="p-1 my-2 card-item-detail d-flex flex-column justify-content-center align-items-start">
-          <div className="mx-2 card-item-validity d-flex flex-row justify-content-start flex-wrap align-items-baseline">
-            <p className="lead mx-2">Pickup Location: </p>
-            <p className="lead mx-2">{props.info.FoodPickup}</p>
+        <div className="p-1 my-2 card-item-detail d-flex flex-column justify-content-center align-items-center">
+          <div className="mx-2 card-item-validity d-flex flex-column justify-content-center align-items-center">
+            <p className="cardinfofield-label">Pickup Location: </p>
+            <p className="cardinfofield-value">{props.info.FoodPickup}</p>
           </div>
           {showBtns && (
-            <div className="mx-2 card-item-validity d-flex flex-row justify-content-start flex-wrap align-items-baseline">
-              <p className="lead mx-2">Remaining Time: </p>
+            <div className="mx-2 card-item-validity d-flex flex-column justify-content-center align-items-center">
+              <p className="cardinfofield-label">Remaining Time: </p>
               <Countdown
                 seconds={Math.floor(
                   new Date(props.info.FoodValidity).getTime() / 1000

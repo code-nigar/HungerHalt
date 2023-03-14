@@ -34,12 +34,27 @@
 }
 
 .card-item-header{
-    color: #199;
+  background: -webkit-linear-gradient(90deg, hsl(54, 98%, 58%), hsl(344, 98%, 68%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .card-item-detail{
     border-radius: 12px;
     padding: 2px 8px;
     border: 1px solid #222;
-    background-color: #444;
+    background-color: #4444448a;
+}
+.cardinfofield-label{
+  font-size: 16px;
+  width: inherit;
+  color: #fff56a;
+  font-stretch: expanded;
+}
+.cardinfofield-value{
+  margin: 0;
+  font-size: 20px;
+  translate: 0px -20px;
+  font-stretch: semi-expanded;
 }

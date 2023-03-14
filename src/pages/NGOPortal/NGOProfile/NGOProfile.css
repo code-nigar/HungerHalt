@@ -20,6 +20,7 @@
 }
 .ngo-logo>img{
     border: 10px solid #333;
+    background-color: #eee;
     border-radius: 50%;
     width: 180px;
     height: 180px;
