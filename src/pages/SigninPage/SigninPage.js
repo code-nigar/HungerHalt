@@ -52,9 +52,14 @@ function SigninPage() {
         console.log(errorCode, errorMessage);
         Swal.fire({
           title: "Error!",
-          text: "Can not sign in",
+          text: `${errorMessage}`,
           icon: "error",
-          confirmButtonText: "ok",
+          timer: 2000,
+          width: 300,
+          padding: '1em',
+          color: '#fde82c',
+          background: '#333',
+          backdrop: `rgba(23,0,0,0.4)`
         });
         // ..
       });

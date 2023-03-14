@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import NewPostModal from "./NewPostModal";
 import "./currentListing.css";
 import axios from "axios";
+import {motion} from "framer-motion"
 
 const approveNGOreq = async (id, updatedFields) => {
   const res = await axios.put(`http://localhost:5000/post/${id}`, updatedFields);
@@ -148,7 +149,11 @@ export default function CurrentListing() {
       return (
         <>
           {cld.map((x) => (
-            <div className="currentlisting-card mb-2" key={x._id}>
+            <motion.div initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -10, opacity: 0 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
+            className="currentlisting-card mb-2" key={x._id}>
               <form className="clc-form">
                 <div className="clc-fields d-flex flex-column justify-content-start align-content-center">
                   <div className="clc-input-field mx-2 d-flex flex-row justify-content-start ">
@@ -261,7 +266,7 @@ export default function CurrentListing() {
                   {showRequestyyDiv(x)}
                 </div>
               )}
-            </div>
+            </motion.div>
           ))}
         </>
       );

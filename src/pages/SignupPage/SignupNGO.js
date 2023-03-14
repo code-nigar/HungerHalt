@@ -155,7 +155,7 @@ function SignupNGO() {
         >
           We are the saviours!
         </motion.p>
-        <form className="signup-form p-4 d-flex flex-column align-items-center">
+        <form className="signup-form p-4 d-flex flex-column align-items-center justify-content-center">
           <div className="form-heading mb-4">
             <motion.h3
               initial={{ y: 100, opacity: 0 }}

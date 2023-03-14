@@ -4,6 +4,7 @@ import { collection, query, getDocs, where, onSnapshot } from "firebase/firestor
 import { db } from "../../../config/config";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { motion } from "framer-motion";
 
 // const data = [
 //   {
@@ -30,7 +31,7 @@ function FeedListing() {
   //fetch listing data on initial load from server
   async function fetchData() {
     try {
-      const response = await axios.get(`http://localhost:5000/post?excludedRequest=${id}`);
+      const response = await axios.get(`http://localhost:5000/post/valid?excludedRequest=${id}`);
       setCL_Data(response.data);
     } catch (error) {
       console.error(error);

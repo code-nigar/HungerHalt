@@ -1,19 +1,21 @@
-import React , {useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import "./NGOProfile.css";
 import DonationTable from "../../../components/DonationTable/DonationTable";
 import BlogPost from "../../../components/BlogPost/BlogPost";
-import {getDoc, doc } from "firebase/firestore";
-import { db } from "../../../config/config";
+//import {getDoc, doc } from "firebase/firestore";
+//import { db } from "../../../config/config";
 import axios from "axios";
 
 function NGOProfile(props) {
-
   const [infoData, setInfoData] = useState(null);
-  const [ngoAbout, setNgoAbout] =useState("Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit doloribus sequi modi molestias distinctio sunt consequatur, mollitia harum alias?");
+  const [ngoAbout, setNgoAbout] = useState(
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit doloribus sequi modi molestias distinctio sunt consequatur, mollitia harum alias?"
+  );
   const [ngoName, setNgoName] = useState("NGO Name");
-  const [ngoLogo, setNgoLogo] = useState("https://www.designmantic.com/logo-images/172145.png?company=Company+Name&slogan=&verify=1");
+  const [ngoLogo, setNgoLogo] = useState(
+    "https://www.designmantic.com/logo-images/172145.png?company=Company+Name&slogan=&verify=1"
+  );
   const [ngoBlogs, setNgoBlogs] = useState([]);
-
 
   //fetch listing data on initial load
   useEffect(() => {
@@ -42,13 +44,13 @@ function NGOProfile(props) {
       const response = await axios.get(
         `http://localhost:5000/ngo?AuthID=${props.NgoID}`
       );
-      console.log("data fetched >> ", response.data[0])
+      console.log("data fetched >> ", response.data[0]);
       setInfoData(response.data[0]);
       setNgoName(response.data[0].Name);
       setNgoAbout(response.data[0].About);
-      setNgoLogo(response.data[0].ProfilePicURL)
-      
-    console.log("info updated >> ",infoData)
+      setNgoLogo(response.data[0].ProfilePicURL);
+
+      console.log("info updated >> ", infoData);
     } catch (error) {
       console.error(error);
     }
@@ -56,54 +58,58 @@ function NGOProfile(props) {
 
   const donationData = [
     {
-      donorName: 'John Doe',
-      donatedItem: 'Blankets',
+      donorName: "John Doe",
+      donatedItem: "Blankets",
       itemQuantity: 10,
-      donationDateTime: '2022-01-28 10:30 PM'
+      donationDateTime: "2022-01-28 10:30 PM",
     },
     {
-      donorName: 'Jane Smith',
-      donatedItem: 'Food',
-      itemQuantity: '50 lbs',
-      donationDateTime: '2022-01-26 02:45 PM'
+      donorName: "Jane Smith",
+      donatedItem: "Food",
+      itemQuantity: "50 lbs",
+      donationDateTime: "2022-01-26 02:45 PM",
     },
     {
-      donorName: 'Bob Johnson',
-      donatedItem: 'Clothes',
+      donorName: "Bob Johnson",
+      donatedItem: "Clothes",
       itemQuantity: 25,
-      donationDateTime: '2022-02-25 11:15 AM'
+      donationDateTime: "2022-02-25 11:15 AM",
     },
     {
-      donorName: 'Alice Brown',
-      donatedItem: 'Hygiene Kits',
+      donorName: "Alice Brown",
+      donatedItem: "Hygiene Kits",
       itemQuantity: 15,
-      donationDateTime: '2022-02-24 06:20 PM'
+      donationDateTime: "2022-02-24 06:20 PM",
     },
     {
-      donorName: 'Bob Johnson',
-      donatedItem: 'Clothes',
+      donorName: "Bob Johnson",
+      donatedItem: "Clothes",
       itemQuantity: 25,
-      donationDateTime: '2021-12-25 11:15 AM'
+      donationDateTime: "2021-12-25 11:15 AM",
     },
     {
-      donorName: 'Alice Brown',
-      donatedItem: 'Hygiene Kits',
+      donorName: "Alice Brown",
+      donatedItem: "Hygiene Kits",
       itemQuantity: 15,
-      donationDateTime: '2021-11-24 06:20 PM'
-    }
+      donationDateTime: "2021-11-24 06:20 PM",
+    },
   ];
 
   const blogData = [
     {
-      title: 'Serving 300+ People',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sodales libero id enim malesuada, id fringilla lacus consectetur. Nullam auctor, nulla vitae sollicitudin faucibus, mauris orci pulvinar felis, eget gravida risus ex vel turpis. Nunc placerat urna id magna tristique, non tristique ex blandit. In quis mauris leo. Nullam vel massa eu sapien faucibus elementum eu eu velit. Mauris vel elit sit amet leo ultricies interdum a eget lacus. Ut porta, leo vel dapibus auctor, nibh dolor vehicula est, vitae lobortis sapien purus quis enim.',
-      imageUrl: 'https://media.istockphoto.com/id/1177156986/photo/free-food-for-the-homeless-and-the-hungry-food-donation-concepts.jpg?s=612x612&w=0&k=20&c=J_vrsDpsERIsyej_f0ApIwqOnDEWt1uqfj67LvxloGk='
+      title: "Serving 300+ People",
+      content:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sodales libero id enim malesuada, id fringilla lacus consectetur. Nullam auctor, nulla vitae sollicitudin faucibus, mauris orci pulvinar felis, eget gravida risus ex vel turpis. Nunc placerat urna id magna tristique, non tristique ex blandit. In quis mauris leo. Nullam vel massa eu sapien faucibus elementum eu eu velit. Mauris vel elit sit amet leo ultricies interdum a eget lacus. Ut porta, leo vel dapibus auctor, nibh dolor vehicula est, vitae lobortis sapien purus quis enim.",
+      imageUrl:
+        "https://media.istockphoto.com/id/1177156986/photo/free-food-for-the-homeless-and-the-hungry-food-donation-concepts.jpg?s=612x612&w=0&k=20&c=J_vrsDpsERIsyej_f0ApIwqOnDEWt1uqfj67LvxloGk=",
     },
     {
-      title: 'Making Kids Happy',
-      content: 'Nullam scelerisque libero vel nisl imperdiet dictum. Curabitur sed lorem ut odio euismod blandit. Nunc fringilla dui felis, sit amet convallis leo elementum at. Duis vel metus vel enim vulputate auctor. Maecenas id fringilla mi. Donec imperdiet metus et ante blandit, eget commodo augue fermentum. Sed varius nisi in orci iaculis, nec tincidunt ex malesuada. Suspendisse at mauris nulla. In dapibus diam non diam hendrerit, in dignissim quam tincidunt. Etiam aliquet bibendum massa, at suscipit ante efficitur sit amet. Quisque blandit orci mi, a ullamcorper augue interdum eu. Praesent pretium ipsum et massa luctus, nec vestibulum nisl pretium. Sed in erat nec augue tristique tincidunt.',
-      imageUrl: 'https://www.needforgoodfoundation.com/wp-content/uploads/2021/08/ngo-1366x630.jpg'
-    }
+      title: "Making Kids Happy",
+      content:
+        "Nullam scelerisque libero vel nisl imperdiet dictum. Curabitur sed lorem ut odio euismod blandit. Nunc fringilla dui felis, sit amet convallis leo elementum at. Duis vel metus vel enim vulputate auctor. Maecenas id fringilla mi. Donec imperdiet metus et ante blandit, eget commodo augue fermentum. Sed varius nisi in orci iaculis, nec tincidunt ex malesuada. Suspendisse at mauris nulla. In dapibus diam non diam hendrerit, in dignissim quam tincidunt. Etiam aliquet bibendum massa, at suscipit ante efficitur sit amet. Quisque blandit orci mi, a ullamcorper augue interdum eu. Praesent pretium ipsum et massa luctus, nec vestibulum nisl pretium. Sed in erat nec augue tristique tincidunt.",
+      imageUrl:
+        "https://www.needforgoodfoundation.com/wp-content/uploads/2021/08/ngo-1366x630.jpg",
+    },
   ];
 
   return (
@@ -116,17 +122,12 @@ function NGOProfile(props) {
       </div>
       <div className="translateY">
         <div className="ngo-logo d-flex flex-row mb-4">
-          <img
-            src={ngoLogo}
-            alt="ngo icon"
-          />
+          <img src={ngoLogo} alt="ngo icon" />
           <h1>{ngoName}</h1>
         </div>
         <div className="about-section d-flex flex-column justify-content-start mb-4">
           <h2 className="section-heaading">ABOUT</h2>
-          <p>
-            {ngoAbout}
-          </p>
+          <p>{ngoAbout}</p>
         </div>
 
         <div className="about-section d-flex flex-column justify-content-start mb-4">
@@ -136,8 +137,13 @@ function NGOProfile(props) {
         <div className="about-section d-flex flex-column justify-content-start mb-4">
           <h2 className="section-heaading">BLOGS</h2>
           {blogData.map((blogPost, index) => (
-        <BlogPost key={index} title={blogPost.title} content={blogPost.content} imageUrl={blogPost.imageUrl} />
-      ))}
+            <BlogPost
+              key={index}
+              title={blogPost.title}
+              content={blogPost.content}
+              imageUrl={blogPost.imageUrl}
+            />
+          ))}
         </div>
         <div className="about-section d-flex flex-column justify-content-start mb-4">
           <h2 className="section-heaading">DONATE</h2>

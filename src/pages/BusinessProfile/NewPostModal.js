@@ -53,6 +53,12 @@ export default function NewPostModal(props) {
           icon: 'success',
           title: 'Post Added',
           text: 'post added successfully!',
+          timer: 2000,
+          width: 300,
+          padding: '1em',
+          color: '#fde82c',
+          background: '#333',
+          backdrop: `rgba(0,25,0,0.4)`
         })
       })
       .catch((err) => console.log(err));

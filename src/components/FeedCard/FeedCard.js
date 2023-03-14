@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import Countdown from "../CountDown/Countdown";
 import { useParams } from "react-router-dom";
 import "./Card.css";
-import { getDoc, doc, updateDoc, arrayUnion } from "firebase/firestore";
-import { db } from "../../config/config";
+//import { getDoc, doc, updateDoc, arrayUnion } from "firebase/firestore";
+//import { db } from "../../config/config";
 import axios from "axios";
+import { motion } from "framer-motion";
 
 const updatePost = async (postId, request) => {
   try {
@@ -31,23 +32,28 @@ function FeedCard(props) {
   const [postyName, setPostyName] = useState("Anonymous");
   const [postyLogo, setPostyLogo] = useState("");
 
-  //fetch listing data on initial load
+  //fetch listing data on initial load joj
   useEffect(() => {
     getPostyInfo();
   }, []);
 
   const getPostyInfo = async () => {
-    const docRef = doc(db, "Businesses", postyID);
-    const docSnap = await getDoc(docRef);
+    // const docRef = doc(db, "Businesses", postyID);
+    // const docSnap = await getDoc(docRef);
 
-    if (docSnap.exists()) {
-      console.log("posty info:", docSnap.data());
-      //setInfoData(docSnap.data());
-      setPostyName(docSnap.data().name);
-      setPostyLogo(docSnap.data().profilePicUrl);
-    } else {
-      console.log("No such document for posty!");
-    }
+    // if (docSnap.exists()) {
+    //   console.log("posty info:", docSnap.data());
+    //   //setInfoData(docSnap.data());
+    //   setPostyName(docSnap.data().name);
+    //   setPostyLogo(docSnap.data().profilePicUrl);
+    // } else {
+    //   console.log("No such document for posty!");
+    // }
+    const response = await axios.get(
+      `http://localhost:5000/biz?AuthID=${postyID}`
+    );
+    setPostyName(response.data[0].Name);
+    setPostyLogo(response.data[0].ProfilePicURL);
   };
 
   const requestBiz = async (e, cid) => {
@@ -66,7 +72,13 @@ function FeedCard(props) {
   };
 
   return (
-    <div className="card">
+    <motion.div
+      initial={{ y: 100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: -10, opacity: 0 }}
+      transition={{ duration: 0.4, delay: 0.5 }}
+      className="card"
+    >
       <div className="card-header">
         <img
           src={
@@ -125,7 +137,7 @@ function FeedCard(props) {
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
