@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import Headerr from "../../components/Header/Header";
 import "./SignupBusiness.css";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { setDoc, doc } from "firebase/firestore";
+//import { setDoc, doc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
 import { db, app, storage } from "../../config/config.js";
@@ -13,7 +13,7 @@ import Swal from "sweetalert2";
 import { motion } from "framer-motion";
 
 function SignupBusiness() {
-  const { state, dispatch } = useContext(userContext);
+  const { dispatch } = useContext(userContext);
 
   const [Bname, setBname] = useState("");
   const [Bemail, setBemail] = useState("");
@@ -23,14 +23,14 @@ function SignupBusiness() {
   const [profileUrl, setProfileUrl] = useState(
     "https://www.logodesign.net/logo/smoking-burger-with-lettuce-3624ld.png"
   );
-  const [B_Id, setB_Id] = useState("");
+  //const [B_Id, setB_Id] = useState("");
   var xt = { iurl: "" };
 
-  useEffect(() => {
-    console.log("img url changed >> ", profileUrl);
-  }, [profileUrl]);
+  // useEffect(() => {
+  //   console.log("img url changed >> ", profileUrl);
+  // }, [profileUrl]);
 
-  const signupAPI = () => {
+  const signupAPI = (aID , iURL) => {
     const url = "http://localhost:5000/biz";
 
     axios({
@@ -41,15 +41,15 @@ function SignupBusiness() {
       },
       data: {
         name: Bname,
-        email: Bemail,
-        picurl: profileUrl,
+        email: Bemail+"@biz.com",
+        Address: address,
+        picurl: iURL,
+        AuthID: aID,
       },
     })
       .then((res) => res)
       .then((data) => {
         console.log(data);
-        // setB_Id(JSON.stringify(data.data._id))
-        // console.log(B_Id);
         return JSON.stringify(data.data._id);
       })
       .catch((err) => console.log(err));
@@ -60,8 +60,9 @@ function SignupBusiness() {
   const signUpfunc = (e) => {
     e.preventDefault();
     if (Bname && address && profilePic && Bemail && Bpass) {
+      let realMail = Bemail+`@biz.com`;
       const auth = getAuth(app);
-      createUserWithEmailAndPassword(auth, Bemail, Bpass)
+      createUserWithEmailAndPassword(auth, realMail, Bpass)
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
@@ -70,38 +71,28 @@ function SignupBusiness() {
           const imageRef = ref(storage, `images/${profilePic.name + v4()}`);
           uploadBytes(imageRef, profilePic).then(async (res) => {
             console.log("upload successful,", res);
-            // getDownloadURL(ref(storage, res.metadata.fullPath))
-            //   .then((iurl)=> {
-            //     console.log(iurl);
-            //     setProfileUrl(iurl);
-            //   })
-            //   .catch((err) => {
-            //     console.log(err);
-            //   });
+      
             xt.iurl = await getDownloadURL(ref(storage, res.metadata.fullPath));
             console.log(xt);
-            setProfileUrl(xt.iurl);
-            //signupAPI()
-            setB_Id(signupAPI());
-            console.log(B_Id);
+            signupAPI(user.uid , xt.iurl)
           });
 
-          try {
-            setDoc(doc(db, "Businesses", user.uid), {
-              userID: B_Id,
-              name: Bname,
-              address: address,
-              contact: 0,
-              email: Bemail,
-              profilePicUrl: profileUrl,
-              contributionCount: 0,
-              about: "",
-              blogs: [],
-            });
-            alert("added successfully");
-          } catch (e) {
-            console.error("Error adding document: ", e);
-          }
+          // try {
+          //   setDoc(doc(db, "Businesses", user.uid), {
+          //     userID: B_Id,
+          //     name: Bname,
+          //     address: address,
+          //     contact: 0,
+          //     email: Bemail,
+          //     profilePicUrl: profileUrl,
+          //     contributionCount: 0,
+          //     about: "",
+          //     blogs: [],
+          //   });
+          //   alert("added successfully");
+          // } catch (e) {
+          //   console.error("Error adding document: ", e);
+          // }
 
           //dispatch trigger the action to replace login switch from navbar with logout switch
           dispatch({ type: "USER", payload: true });
@@ -112,11 +103,28 @@ function SignupBusiness() {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          alert(errorCode, errorMessage);
-          // ..
+          Swal.fire({
+            icon:'error',
+            text:`${errorMessage}`,
+            timer: 2000,
+            width: 300,
+            padding: '1em',
+            color: '#fde82c',
+            background: '#333',
+            backdrop: `rgba(23,0,0,0.4)`
+          });
         });
     } else {
-      alert("fill all inputs");
+      Swal.fire({
+        icon:'error',
+        title:'Fill all inputs!',
+        timer: 2000,
+        width: 300,
+        padding: '1em',
+        color: '#fde82c',
+        background: '#333',
+        backdrop: `rgba(23,0,0,0.4)`
+      });
     }
   };
 
@@ -200,10 +208,11 @@ function SignupBusiness() {
               transition={{ duration: 0.8 }}
               className="input-field-signup mt-3"
             >
-              <label htmlFor="email">Email:</label>
+              <label htmlFor="email">Set User Name:</label>
               <input
-                type="email"
+                type="text"
                 name="email"
+                pattern="[A-Za-z0-9]"
                 id=""
                 value={Bemail}
                 onChange={(e) => setBemail(e.target.value)}
@@ -216,7 +225,7 @@ function SignupBusiness() {
               transition={{ duration: 0.9 }}
               className="input-field-signup mt-3"
             >
-              <label htmlFor="pass">Password: </label>
+              <label htmlFor="pass">Set Password: </label>
               <input
                 type="password"
                 name="pass"

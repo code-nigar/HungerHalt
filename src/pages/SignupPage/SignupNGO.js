@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { userContext } from "../../App";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion";
+import axios from "axios";
 
 function SignupNGO() {
   const { state, dispatch } = useContext(userContext);
@@ -22,15 +23,56 @@ function SignupNGO() {
   const [profileUrl, setProfileUrl] = useState(
     "https://thumbs.dreamstime.com/b/ngo-letter-technology-logo-design-white-background-creative-initials-concept-253007787.jpg"
   );
+   var xt = { iurl: "" };
 
+   const signupAPI = (aID , iURL) => {
+    const url = "http://localhost:5000/ngo";
+
+    axios({
+      method: "POST",
+      url: url,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+      data: {
+        name: NGOname,
+        email: NGOemail+"@ngo.com",
+        Address: address,
+        picurl: iURL,
+        AuthID: aID,
+      },
+    })
+      .then((res) => res)
+      .then((data) => {
+        console.log(data);
+        return JSON.stringify(data.data._id);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const showUserNameGuide = (e) =>{
+    e.preventDefault();
+    Swal.fire({
+        icon:'info',
+        title:'set valid User name!',
+        text:'use Alphabets(A-Z || a-z) and Numbers(0-9) only',
+        timer: 4000,
+        width: 300,
+        padding: '1em',
+        color: '#fde82c',
+        background: '#222',
+        backdrop: `rgba(0,60,60,0.4)`
+      });
+  }
   const navigate = useNavigate();
 
   const signUpfunc = (e) => {
     e.preventDefault();
 
     if (NGOname && address && profilePic && NGOemail && NGOpass) {
+      let realMail = NGOemail+`@ngo.com`
       const auth = getAuth(app);
-      createUserWithEmailAndPassword(auth, NGOemail, NGOpass)
+      createUserWithEmailAndPassword(auth, realMail, NGOpass)
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
@@ -43,28 +85,29 @@ function SignupNGO() {
             getDownloadURL(ref(storage, res.metadata.fullPath))
               .then((url) => {
                 console.log("file url >> ", url);
-                setProfileUrl(url.toString());
+                //setProfileUrl(url.toString());
+                signupAPI(user.uid , url)
               })
               .catch((err) => {
                 console.log(err);
               });
           });
 
-          try {
-            setDoc(doc(db, "NGOs", user.uid), {
-              name: NGOname,
-              address: address,
-              contact: 0,
-              email: NGOemail,
-              profilePicUrl: profileUrl,
-              contributionCount: 0,
-              about: "",
-              blogs: [],
-            });
-            alert("added successfully");
-          } catch (e) {
-            console.error("Error adding document: ", e);
-          }
+          // try {
+          //   setDoc(doc(db, "NGOs", user.uid), {
+          //     name: NGOname,
+          //     address: address,
+          //     contact: 0,
+          //     email: NGOemail,
+          //     profilePicUrl: profileUrl,
+          //     contributionCount: 0,
+          //     about: "",
+          //     blogs: [],
+          //   });
+          //   alert("added successfully");
+          // } catch (e) {
+          //   console.error("Error adding document: ", e);
+          // }
           //dispatch trigger the action to replace login switch from navbar with logout switch
           dispatch({ type: "USER", payload: true });
           //navigate user to ngo-profile page
@@ -74,11 +117,28 @@ function SignupNGO() {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          alert(errorCode, errorMessage);
-          // ..
+          Swal.fire({
+            icon:'error',
+            text:`${errorMessage}`,
+            timer: 2000,
+            width: 300,
+            padding: '1em',
+            color: '#fde82c',
+            background: '#333',
+            backdrop: `rgba(23,0,0,0.4)`
+          });
         });
     } else {
-      alert("fill all inputs");
+      Swal.fire({
+        icon:'error',
+        title:'Fill all inputs!',
+        timer: 2000,
+        width: 300,
+        padding: '1em',
+        color: '#fde82c',
+        background: '#333',
+        backdrop: `rgba(23,0,0,0.4)`
+      });
     }
   };
 
@@ -162,15 +222,20 @@ function SignupNGO() {
               transition={{ duration: 0.8 }}
               className="input-field-signup mt-3"
             >
-              <label htmlFor="email">Email:</label>
-              <input
-                type="email"
+              <label htmlFor="email">Set User Name:</label>
+              <div className="input-field-signup">
+                <input
+                type="text"
                 name="email"
-                id=""
+                pattern="[A-Za-z0-9]"
+                placeholder="myNGO123"
+                id="username-input"
                 value={NGOemail}
                 onChange={(e) => setNGOemail(e.target.value)}
               />
-            </motion.div>
+              <button className="info-btn" onClick={showUserNameGuide}>i</button>
+              </div>
+              </motion.div>
             <motion.div
               initial={{ y: 10, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -178,7 +243,7 @@ function SignupNGO() {
               transition={{ duration: 0.9 }}
               className="input-field-signup mt-3"
             >
-              <label htmlFor="NGOpass">Password: </label>
+              <label htmlFor="NGOpass">Set Password: </label>
               <input
                 type="password"
                 name="NGOpass"

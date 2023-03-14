@@ -4,6 +4,7 @@ import DonationTable from "../../../components/DonationTable/DonationTable";
 import BlogPost from "../../../components/BlogPost/BlogPost";
 import {getDoc, doc } from "firebase/firestore";
 import { db } from "../../../config/config";
+import axios from "axios";
 
 function NGOProfile(props) {
 
@@ -16,24 +17,42 @@ function NGOProfile(props) {
 
   //fetch listing data on initial load
   useEffect(() => {
-    getNGOInfo();
+    //getNGOInfo();
+    fetchData();
   }, []);
 
-  const getNGOInfo = async () => {
-    const docRef = doc(db, "NGOs", props.NgoID);
-    const docSnap = await getDoc(docRef);
+  // const getNGOInfo = async () => {
+  //   const docRef = doc(db, "NGOs", props.NgoID);
+  //   const docSnap = await getDoc(docRef);
 
-    if (docSnap.exists()) {
-      console.log("NGO info data:", docSnap.data());
-      setInfoData(docSnap.data());
-      setNgoName(docSnap.data().name);
-      setNgoAbout(docSnap.data().about);
-      setNgoLogo(docSnap.data().profilePicUrl)
-    } else {
-      // doc.data() will be undefined in this case
-      console.log("No such document!");
+  //   if (docSnap.exists()) {
+  //     console.log("NGO info data:", docSnap.data());
+  //     setInfoData(docSnap.data());
+  //     setNgoName(docSnap.data().name);
+  //     setNgoAbout(docSnap.data().about);
+  //     setNgoLogo(docSnap.data().profilePicUrl)
+  //   } else {
+  //     // doc.data() will be undefined in this case
+  //     console.log("No such document!");
+  //   }
+  // };
+
+  async function fetchData() {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/ngo?AuthID=${props.NgoID}`
+      );
+      console.log("data fetched >> ", response.data[0])
+      setInfoData(response.data[0]);
+      setNgoName(response.data[0].Name);
+      setNgoAbout(response.data[0].About);
+      setNgoLogo(response.data[0].ProfilePicURL)
+      
+    console.log("info updated >> ",infoData)
+    } catch (error) {
+      console.error(error);
     }
-  };
+  }
 
   const donationData = [
     {

@@ -75,7 +75,7 @@ function Headerr() {
       <header className="header d-flex flex-row justify-content-between p-2 align-items-center bg-dark shadow">
         <div className="d-flex flex-row justify-content-center align-items-center">
           <img
-            src="hungerHaltIcon.png"
+            src="https://firebasestorage.googleapis.com/v0/b/hungerhalt-84255.appspot.com/o/images%2FhungerHaltIcon.pngf778bbc1-ac0c-4447-a239-eae4e29081d0?alt=media&token=99c1a242-a739-468a-89c8-ab606db17faa"
             alt="hungerhalt logo"
             className="logo-img"
           />

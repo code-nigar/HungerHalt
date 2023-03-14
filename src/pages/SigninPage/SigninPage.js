@@ -12,6 +12,7 @@ function SigninPage() {
   const { state, dispatch } = useContext(userContext);
 
   const [NGOSignin, setNGOSignin] = useState(false);
+  const [mail_substr, setMail_substr] = useState('@biz.com');
 
   const [Bemail, setBemail] = useState("");
   const [Bpass, setBpass] = useState("");
@@ -22,10 +23,18 @@ function SigninPage() {
     e.preventDefault();
 
     const auth = getAuth(app);
-    signInWithEmailAndPassword(auth, Bemail, Bpass)
+    if (NGOSignin) {
+      setMail_substr(`@ngo.com`);
+    } else {
+      setMail_substr(`@biz.com`);
+    }
+    let theAuthMail = Bemail+mail_substr;
+    console.log(theAuthMail);
+    signInWithEmailAndPassword(auth, theAuthMail , Bpass)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+
         console.log("user signed in as", user);
         //dispatch trigger the action to replace login switch from navbar with logout switch
         dispatch({ type: "USER", payload: true });
@@ -89,9 +98,11 @@ function SigninPage() {
             className="fields d-flex flex-column justify-content-center px-4"
           >
             <div className="input-field-signin mt-3">
-              <label htmlFor="email">Email:</label>
+              <label htmlFor="email">User Name:</label>
               <input
-                type="email"
+                type="text"
+                pattern="[A-Za-z0-9]"
+                placeholder="myProfile123"
                 name="email"
                 id=""
                 value={Bemail}

@@ -7,28 +7,44 @@ import BookedListing from "./BookedListing";
 import ContributionHistory from "./ContributionHistory";
 import { getDoc, doc } from "firebase/firestore";
 import { db } from "../../config/config";
+import axios from "axios";
 
 export default function BusinessProfile() {
   const { id } = useParams();
-  const [infoData, setInfoData] = useState(null);
+  const [infoData, setInfoData] = useState({});
 
   //fetch listing data on initial load
   useEffect(() => {
-    getBusinessInfo();
+    //getBusinessInfo();
+    fetchData();
   }, []);
 
-  const getBusinessInfo = async () => {
-    const docRef = doc(db, "Businesses", id);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      console.log("Business info data:", docSnap.data());
-      setInfoData(docSnap.data());
-    } else {
-      // doc.data() will be undefined in this case
-      console.log("No such document!");
+  async function fetchData() {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/biz?AuthID=${id}`
+      );
+      console.log("data fetched >> ", response.data[0])
+      setInfoData(response.data[0]);
+      
+    console.log("info updated >> ",infoData)
+    } catch (error) {
+      console.error(error);
     }
-  };
+  }
+
+  // const getBusinessInfo = async () => {
+  //   const docRef = doc(db, "Businesses", id);
+  //   const docSnap = await getDoc(docRef);
+
+  //   if (docSnap.exists()) {
+  //     console.log("Business info data:", docSnap.data());
+  //     setInfoData(docSnap.data());
+  //   } else {
+  //     // doc.data() will be undefined in this case
+  //     console.log("No such document!");
+  //   }
+  // };
 
   const [toggleTab, setToggleTab] = useState(1);
   // const [openModal, setOpenModal] = useState(false);
@@ -58,30 +74,32 @@ export default function BusinessProfile() {
         <div className="left-container">
           <div className="profile">
             <img
-              src={infoData ? infoData.profilePicUrl : "https://www.logodesign.net/logo/smoking-burger-with-lettuce-3624ld.png"}
+              src={infoData ? infoData.ProfilePicURL : "https://www.logodesign.net/logo/smoking-burger-with-lettuce-3624ld.png"}
               alt="profile"
             />
             <div className="profile-info mt-4">
               <h3 className="text-capitalize">
-                {infoData ? infoData.name : "biz name"}
+                {infoData ? infoData.Name : "biz name"}
               </h3>
               <p>Contribution level: HERO</p>
               <p>
-                Donation Count: {infoData ? infoData.contributionCount : "0"}
+                Donation Count: {infoData ? infoData.ContributionCount : "0"}
               </p>
               <h5>About</h5>
               <p className="about-desc">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non
+                {infoData.About !== "" ?
+                infoData.About :
+                `Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non
                 alias animi explicabo voluptates ipsa, architecto ab itaque quia
                 reiciendis eum eaque veritatis aut velit provident! Asperiores
                 doloribus laboriosam nihil optio quis reprehenderit obcaecati
                 incidunt ipsum! Et repellat rerum, eligendi quae explicabo est
-                delectus non ipsam.
+                delectus non ipsam.`}
               </p>
               <h5>Contact</h5>
               <div className="contact-links">
                 <a
-                  href="https://www.instagram.com"
+                  href={infoData ? infoData.InstaURL : "https://www.instagram.com"}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="link instagram"
@@ -98,7 +116,7 @@ export default function BusinessProfile() {
                   </svg>
                 </a>
                 <a
-                  href="https://www.facebook.com"
+                  href={infoData ? infoData.FbURL :"https://www.facebook.com"}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="link facebook"
@@ -115,7 +133,7 @@ export default function BusinessProfile() {
                   </svg>
                 </a>
                 <a
-                  href="https://www.twitter.com"
+                  href={infoData ? infoData.WhatsappURL : "https://web.whatsapp.com"}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="link twitter"
