@@ -25,7 +25,7 @@
 #name-input{
     min-width: 85%;
 }
-.request-count{
+.request-count, .request-count-muted{
     border-radius: 20px;
     padding: 2px 10px;
     background-color: #333;
