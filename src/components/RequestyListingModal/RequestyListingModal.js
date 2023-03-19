@@ -89,7 +89,7 @@ function RequestyListingModal(props) {
                       </div>
                     </div>
                   </div>
-                  <button className="btn btn-outline-primary" onClick={()=>{approveBtn(props.PostID, x[0]._id)}}>Approve</button>
+                  <button className="btn btn-outline-primary" onClick={()=>{approveBtn(props.PostID, x[0].AuthID)}}>Approve</button>
                 </div>
 
                 <div className="requestee-about">{x[0].About}</div>
