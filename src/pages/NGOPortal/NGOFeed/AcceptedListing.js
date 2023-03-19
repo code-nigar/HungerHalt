@@ -10,7 +10,7 @@ function AcceptedListing() {
   //fetch listing data on initial load from server
   async function fetchData() {
     try {
-      const response = await axios.get(`http://localhost:5000/post?bookedFor=${id}&bookedStatus=${true}`);
+      const response = await axios.get(`http://localhost:5000/post?AuthID=${id}&bookedStatus=${true}`);
       setCL_Data(response.data);
     } catch (error) {
       console.error(error);
@@ -31,7 +31,7 @@ function AcceptedListing() {
           key={index}
           //profileIcon={cardData.profileIcon}
           showReqBtn={false}
-          ShowBtns={true}
+          ShowBtns={false}
           info={cardData}
         />
       ))}

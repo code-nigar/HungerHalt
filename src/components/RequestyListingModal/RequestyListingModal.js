@@ -38,6 +38,22 @@ function RequestyListingModal(props) {
     setArrOfRequestees(finalArr);
   }
 
+  const approveBtn = (postID, ngoID) => {
+    approveNGOreq(postID, {
+      BookedFor: ngoID,
+      BookedStatus: true,
+    });
+  };
+
+  const approveNGOreq = async (id, updatedFields) => {
+    const res = await axios.put(
+      `http://localhost:5000/post/${id}`,
+      updatedFields
+    );
+    res.data && alert("request approved");
+    return res.data;
+  };
+
   //fetch requesty data on initial load from server
   useEffect(() => {
     fetchNGOdata();
@@ -73,7 +89,7 @@ function RequestyListingModal(props) {
                       </div>
                     </div>
                   </div>
-                  <button className="btn btn-outline-primary">Approve</button>
+                  <button className="btn btn-outline-primary" onClick={()=>{approveBtn(props.PostID, x[0]._id)}}>Approve</button>
                 </div>
 
                 <div className="requestee-about">{x[0].About}</div>
@@ -89,11 +105,3 @@ function RequestyListingModal(props) {
 }
 
 export default RequestyListingModal;
-
-// const approveBtn = (postID) => {
-//   approveNGOreq(postID,{
-//     BookedFor: id,
-//     BookedStatus: true,
-//   });
-//   setShowChild(!showChild);
-// }

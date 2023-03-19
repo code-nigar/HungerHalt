@@ -5,21 +5,10 @@ import "./currentListing.css";
 import axios from "axios";
 import TheCurrentListingCard from "../../components/TheCurrentListingCard/TheCurrentListingCard";
 
-const approveNGOreq = async (id, updatedFields) => {
-  const res = await axios.put(
-    `http://localhost:5000/post/${id}`,
-    updatedFields
-  );
-  res.data && alert("request approved");
-  return res.data;
-};
-
 export default function CurrentListing() {
   const { id } = useParams();
   const [openModal, setOpenModal] = useState(false);
-  const [disable, setDisable] = useState(true);
   const [CL_data, setCL_Data] = useState([]);
-  const [showChild, setShowChild] = useState(false);
 
   async function fetchData() {
     try {

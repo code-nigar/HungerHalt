@@ -131,6 +131,10 @@ function FeedCard(props) {
             <button className="btn btn-secondary my-3 mx-2">
               Remove Request
             </button>
+          </div>
+        )}
+        {!showBtns && !showReqBtn && (
+          <div className="d-flex flex-row justify-content-around align-items-center">
             <button className="btn btn-primary my-3 mx-2">
               Mark As Complete
             </button>
