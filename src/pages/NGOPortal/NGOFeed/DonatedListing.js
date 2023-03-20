@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import FeedCard from "../../../components/FeedCard/FeedCard";
+import DonatedItemCard from "../../../components/FeedCard/DonatedItemCard";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -28,11 +29,8 @@ function DonatedListing() {
       <h1 className="light">Your Contributions to Halt Hunger</h1>
       {console.log(CL_data)}
       {CL_data.map((cardData, index) => (
-        <FeedCard
+        <DonatedItemCard
           key={index}
-          //profileIcon={cardData.profileIcon}
-          showReqBtn={false}
-          ShowBtns={false}
           info={cardData}
         />
       ))}
