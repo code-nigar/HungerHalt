@@ -10,7 +10,7 @@ function AcceptedListing() {
   //fetch listing data on initial load from server
   async function fetchData() {
     try {
-      const response = await axios.get(`http://localhost:5000/post?bookedFor=${id}&bookedStatus=${true}`);
+      const response = await axios.get(`http://localhost:5000/post/booked?bookedFor=${id}`);
       setCL_Data(response.data);
     } catch (error) {
       console.error(error);

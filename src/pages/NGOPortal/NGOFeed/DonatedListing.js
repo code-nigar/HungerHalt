@@ -11,7 +11,7 @@ function DonatedListing() {
   async function fetchData() {
     try {
       const response = await axios.get(
-        `http://localhost:5000/post?bookedFor=${id}&doneStatus=${true}`
+        `http://localhost:5000/post/completed?bookedFor=${id}`
       );
       setCL_Data(response.data);
     } catch (error) {

@@ -6,15 +6,72 @@ import "./Card.css";
 //import { db } from "../../config/config";
 import axios from "axios";
 import { motion } from "framer-motion";
+import Swal from 'sweetalert2'
 
 const updatePost = async (postId, request) => {
   try {
     const res = await axios.put(`http://localhost:5000/post/${postId}`, {
       request,
     });
+    Swal.fire({
+      icon: 'success',
+      title: 'Requested!',
+      text: 'your request has been Added',
+      timer: 2000,
+      width: 300,
+      padding: '1em',
+      color: '#fde82c',
+      background: '#333',
+      backdrop: `rgba(0,25,0,0.4)`
+    })
     return res.data;
   } catch (err) {
     console.error(err);
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: `${err}`,
+      timer: 2000,
+      width: 300,
+      padding: '1em',
+      color: '#fde82c',
+      background: '#333',
+      backdrop: `rgba(0,25,0,0.4)`
+    })
+    throw err;
+  }
+};
+
+const removeReq = async (postId, request) => {
+  try {
+    const res = await axios.put(`http://localhost:5000/post/unrequest/${postId}`, {
+      request,
+    });
+    Swal.fire({
+      icon: 'success',
+      title: 'Removed!',
+      text: 'your request has been removed.',
+      timer: 2000,
+      width: 300,
+      padding: '1em',
+      color: '#fde82c',
+      background: '#333',
+      backdrop: `rgba(0,25,0,0.4)`
+    })
+    return res.data;
+  } catch (err) {
+    console.error(err);
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: `${err}`,
+      timer: 2000,
+      width: 300,
+      padding: '1em',
+      color: '#fde82c',
+      background: '#333',
+      backdrop: `rgba(0,25,0,0.4)`
+    })
     throw err;
   }
 };
@@ -69,6 +126,43 @@ function FeedCard(props) {
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const undoRequest = async (e, cid) => {
+    e.preventDefault();
+    try {
+      const updatedPost = await removeReq(cid, id);
+      console.log("request removed >> ", updatedPost);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+
+  const completeBtn = (postID) => {
+    markAsComplete(postID, {
+      CompletionStatus: true,
+      CompletionDate : new Date(),
+    });
+  };
+
+  const markAsComplete = async (id, updatedFields) => {
+    const res = await axios.put(
+      `http://localhost:5000/post/${id}`,
+      updatedFields
+    );
+    res.data && Swal.fire({
+      icon: 'success',
+      title: 'Good Job!',
+      text: 'Contribution Added',
+      timer: 2000,
+      width: 300,
+      padding: '1em',
+      color: '#fde82c',
+      background: '#333',
+      backdrop: `rgba(0,25,0,0.4)`
+    });
+    return res.data;
   };
 
   return (
@@ -128,14 +222,15 @@ function FeedCard(props) {
         )}
         {showBtns && !showReqBtn && (
           <div className="d-flex flex-row justify-content-around align-items-center">
-            <button className="btn btn-secondary my-3 mx-2">
+            <button className="btn btn-secondary my-3 mx-2"
+            onClick={(e)=>{undoRequest(e, cardID)}}>
               Remove Request
             </button>
           </div>
         )}
         {!showBtns && !showReqBtn && (
           <div className="d-flex flex-row justify-content-around align-items-center">
-            <button className="btn btn-primary my-3 mx-2">
+            <button className="btn btn-primary my-3 mx-2" onClick={()=>{completeBtn(cardID)}}>
               Mark As Complete
             </button>
           </div>
