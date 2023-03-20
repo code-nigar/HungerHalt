@@ -12,7 +12,7 @@ export default function ContributionHistory() {
 
   async function fetchData() {
     try {
-      const response = await axios.get(`http://localhost:5000/post?postedBy=${id}&bookedStatus=${false}&doneStatus=${true}`);
+      const response = await axios.get(`http://localhost:5000/post/completed?postedBy=${id}`);
       setCL_Data(response.data);
     } catch (error) {
       console.error(error);

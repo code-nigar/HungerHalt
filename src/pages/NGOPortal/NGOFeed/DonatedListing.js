@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import FeedCard from "../../../components/FeedCard/FeedCard";
 import DonatedItemCard from "../../../components/FeedCard/DonatedItemCard";
 import { useParams } from "react-router-dom";
 import axios from "axios";

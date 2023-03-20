@@ -13,7 +13,7 @@ export default function BookedListing() {
 
   async function fetchData() {
     try {
-      const response = await axios.get(`http://localhost:5000/post?postedBy=${id}&bookedStatus=${true}`);
+      const response = await axios.get(`http://localhost:5000/post/booked?postedBy=${id}`);
       setCL_Data(response.data);
     } catch (error) {
       console.error(error);
